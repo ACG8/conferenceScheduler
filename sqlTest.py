@@ -1,6 +1,6 @@
 #!/usr/bin/python
 # -*- coding: cp1252 -*-
-
+# test comment
 # import MySQL module
 import MySQLdb
 import getpass
