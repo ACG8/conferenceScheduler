@@ -80,10 +80,12 @@ def select(db,table,SAs,FAs,FOs,FVs):
     result = cursor.fetchall()
     return result
 
-def selectAll(db,table):
-    "Returns the entire table"
+def selectAll(db,table,SAs):
+    "Returns the entire table, with just attributes SAs"
+    selectStatement = ", ".join(SAs)
+    if not selectStatement: selectStatement = "*"
     cursor = db.cursor()
-    cursor.execute("SELECT * FROM {}".format(table))
+    cursor.execute("SELECT {} FROM {}".format(selectStatement,table))
     result = cursor.fetchall()
     return result
 
@@ -96,6 +98,9 @@ def append(db,table,tuples,fields=None):
     print statement
     cursor  = db.cursor()
     cursor.execute(statement)
+
+#####To do: package everything into a class, db as property of class
+
 
 def commit(db):
     db.commit()
