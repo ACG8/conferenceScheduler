@@ -1,4 +1,4 @@
-#!/usr/bin/python
+0#!/usr/bin/python
 # -*- coding: cp1252 -*-
 
 # import MySQL module
@@ -55,6 +55,16 @@ class Connection:
         cursor.execute(query)
         result = cursor.fetchall()
         return result
+
+    def delete(self,table,FAs,FOs,FVs):
+        "Deletes based on filters FAs,FOs,FVs"
+        whereStatement = getFilter(FAs,FOs,FVs)
+        #you cannot update without a where statement or a matching set of change attributes and values
+        if not (whereStatement): return "ERROR - FAILED TO PARSE FILTERS"
+        query = "DELETE FROM {} WHERE {}".format(table,whereStatement)
+        cursor = self.db.cursor()
+        cursor.execute(query)
+        return "SUCCESSFUL DELETION"
 
     def selectAll(self,table,SAs):
         "Returns the entire table, with just attributes SAs"
