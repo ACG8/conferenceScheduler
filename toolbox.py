@@ -115,21 +115,5 @@ def getFilter(attributes,operators,values):
     output = ", ".join(["{} {} {}".format(attributes[i],operators[i],v) for i,v in enumerate(values)])
     return output
 
-#####To do: package everything into a class, db as property of class
-
-def listCommands():
-    "Lists all commands (and their arguments) in this module"
-    print "sanitize(statement)"
-    print "connect(usr,passd,database)"
-    print "getAttributes(db,table)"
-    print "getTables(db)"
-    print "getFilter(attributes,operators,values)"
-    print "update(db,table,CAs,CVs,FAs,FOs,FVs)"
-    print "select(db,table,SAs,FAs,FOs,FVs)"
-    print "selectAll(db,table)"
-    print "append(db,table,tuples,fields=None)"
-    print "commit(db)"
-    print "listCommands()"
-
 print "Connection automatically established with conferencescheduler connectionas 'db' for debugging purposes"
 db = Connection("ananda","password","conferencescheduler")
