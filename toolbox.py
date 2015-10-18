@@ -80,7 +80,7 @@ class Connection:
         fieldStatement = ""
         if fields: fieldStatement = "({}) ".format(", ".join(fields))
         valuesStatement = ", ".join(tuples)
-        statement = "INSERT INTO {} {}VALUES {};".format(table,fieldStatement,valuesStatement)
+        statement = "INSERT INTO {} {}VALUES ({});".format(table,fieldStatement,valuesStatement)
         print statement
         cursor  = self.db.cursor()
         cursor.execute(statement)
@@ -115,5 +115,5 @@ def getFilter(attributes,operators,values):
     output = ", ".join(["{} {} {}".format(attributes[i],operators[i],v) for i,v in enumerate(values)])
     return output
 
-print "Connection automatically established with conferencescheduler connectionas 'db' for debugging purposes"
-db = Connection("ananda","password","conferencescheduler")
+#print "Connection automatically established with conferencescheduler connectionas 'db' for debugging purposes"
+#db = Connection("ananda","password","scheduler")

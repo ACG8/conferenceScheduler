@@ -1,0 +1,64 @@
+0#!/usr/bin/python
+# -*- coding: cp1252 -*-
+
+# import MySQL module
+from toolbox import *
+import getpass
+import datetime
+
+def checkSignIn(username,password):
+    """Checks username and password against database.
+    returns bool for validity."""
+    #Sanitize inputs
+    username = sanitize(username)
+    password = sanitize(password)
+
+    db = Connection("ananda","password","scheduler")
+    dbTuple = db.select("tbl_users",["password"],["username"],["="],[username])
+    return dbTuple[0][0] == password
+
+def createAccount(username,password,repass,fname,lname,email):
+    """Attempts to create a new account with given info.
+    Returns (bool,string) for success (with string indicating reason for failure"""
+    #Sanitize inputs
+    username = sanitize(username)
+    password = sanitize(password)
+    repass = sanitize(repass)
+    fname = sanitize(fname)
+    lname = sanitize(lname)
+    email = sanitize(email)
+    
+    #Check whether password and repassword match
+    if password != repass: return (False,"Failure - the given passwords do not match.")
+
+    #Connect to database
+    db = Connection("ananda","password","scheduler")
+    
+    #Check whether somebody already has that username
+    dbTuple = db.select("tbl_users",["username"],["username"],["="],[username])
+    if dbTuple: return (False,"Failure - username is taken.")
+
+    #Format inputs with quotes
+    username = "\"{}\"".format(username)
+    password = "\"{}\"".format(password)
+    repass = "\"{}\"".format(repass)
+    fname = "\"{}\"".format(fname)
+    lname = "\"{}\"".format(lname)
+    email = "\"{}\"".format(email)
+
+    #Establish account and return True
+    date = "\"{}\"".format(str(datetime.datetime.now()))
+    db.append("tbl_users",
+              (username,password,fname,lname,email,
+               username,date,"0"),
+              ("username","password","first_name","last_name","mail",
+               "last_updated_by","last_updated_date","role_id"))
+    db.commit()
+    return (True, "Success - account created.")
+
+#SQL commands for testing
+
+#Need to provide value for role id before can test; use the following:
+#   insert into tbl_roles values (0,"user","a normal user","user");
+
+#createAccount("ananda","password","password","ananda","guneratne","acg@gmail.com")
