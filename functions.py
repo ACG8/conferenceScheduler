@@ -1,4 +1,4 @@
-0#!/usr/bin/python
+#!/usr/bin/python
 # -*- coding: cp1252 -*-
 
 # import MySQL module
@@ -13,7 +13,7 @@ def checkSignIn(username,password):
     username = sanitize(username)
     password = sanitize(password)
 
-    db = Connection("ananda","password","scheduler")
+    db = Connection("root","password","scheduler")
     dbTuple = db.select("tbl_users",["password"],["username"],["="],[username])
     return dbTuple[0][0] == password
 
@@ -32,7 +32,7 @@ def createAccount(username,password,repass,fname,lname,email):
     if password != repass: return (False,"Failure - the given passwords do not match.")
 
     #Connect to database
-    db = Connection("ananda","password","scheduler")
+    db = Connection("root","password","scheduler")
     
     #Check whether somebody already has that username
     dbTuple = db.select("tbl_users",["username"],["username"],["="],[username])
@@ -61,4 +61,4 @@ def createAccount(username,password,repass,fname,lname,email):
 #Need to provide value for role id before can test; use the following:
 #   insert into tbl_roles values (0,"user","a normal user","user");
 
-#createAccount("ananda","password","password","ananda","guneratne","acg@gmail.com")
+#createAccount("alex","password","password","alex","hanson","hanson.alex@yahoo.com")

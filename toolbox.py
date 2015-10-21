@@ -92,6 +92,7 @@ class Connection:
 def sanitize(statement):
     "Sanitizes a statement by removing quotes and semicolns to prevent SQL injection attacks"
     return statement.replace(";","").replace("'","").replace("\"","")
+
 """
 def connect():
     "Connect to the database of user's choice"

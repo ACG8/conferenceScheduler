@@ -1,6 +1,6 @@
+from functions import *
 from flask import Flask, render_template, request
 app = Flask(__name__)
-from functions import *
 
 @app.route("/")
 def main():
@@ -9,8 +9,10 @@ def main():
 @app.route("/login", methods=['POST'])
 def login():
 	data = request.form
-	print data
-	return render_template("hello.html", data = data)
+	if checkSignIn(data['username'], data['password']) == True:
+		return render_template("hello.html", data = data)
+	else:
+		return render_template("index.html")
 	
 @app.route("/signup/")
 def sign_up():
