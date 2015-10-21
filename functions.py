@@ -15,8 +15,9 @@ def checkSignIn(username,password):
 
     db = Connection("root","password","scheduler")
     dbTuple = db.select("tbl_users",["password"],["username"],["="],[username])
-    return dbTuple[0][0] == password
-
+    try: return dbTuple[0][0] == password
+    except IndexError: return False
+        
 def createAccount(username,password,repass,fname,lname,email):
     """Attempts to create a new account with given info.
     Returns (bool,string) for success (with string indicating reason for failure"""
