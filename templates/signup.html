@@ -8,13 +8,13 @@
 <body>
  	
 	<h1>Sign Up</h1>
+	{% if data %}
+		<h3>{{ data }}</h3>
+	{% endif %}
 	
-    <form>
+    <form action="signup" method="POST">
 		First name:<br>
   		<input type="text" name="firstname">
-  		<br>
-		Middle name:<br>
-  		<input type="text" name="middlename">
   		<br>
   		Last name:<br>
 		<input type="text" name="lastname">
@@ -31,11 +31,8 @@
 		Email:<br>
 		<input type="text" name="email">
 		<br>
-		Phone Number:<br>
-		<input type="text" name="phone">
+		<button>Sign Up</button>
 	</form>
-
-	<a href="/signup"><button>Sign Up</button></a>
 	<a href="/"><button>Sign In</button></a>
 </body>
  
