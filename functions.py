@@ -57,8 +57,8 @@ def createAccount(username,password,repass,fname,lname,email):
     db.commit()
     return (True, "Success - account created.")
 
-def filterLocations(building,room=None):
-    "Returns a set of tuples that match the filters: (room id, room name, contained resources)"
+def filterLocations(building,date,room=None):
+    "Returns a set of tuples that match the filters: (room id, room name)"
     #Sanitize inputs
     building = sanitize(building)
     room = sanitize(room) if room else None
@@ -69,6 +69,8 @@ def filterLocations(building,room=None):
 
     db = Connection("root","password","scheduler")
     dbTuple = db.select("tbl_room_locations",["room","name"],attributes,operators,values)
+    print dbTuple
+
 
 #SQL commands for testing
 
