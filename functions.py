@@ -58,9 +58,11 @@ def createAccount(username,password,repass,fname,lname,email):
     return (True, "Success - account created.")
 
 def filterLocations(building,date,room=None):
-    "Returns a set of tuples that match the filters: (room id, room name)"
+    """Returns a set of tuples that match the filters: (room id, room name)
+    Date must be in format YYYY/MM/DD"""
     #Sanitize inputs
     building = sanitize(building)
+    date = sanitize(date)
     room = sanitize(room) if room else None
 
     attributes = ["abbv"] + (["room"] if room else [])
@@ -71,7 +73,18 @@ def filterLocations(building,date,room=None):
     dbTuple = db.select("tbl_room_locations",["room","name"],attributes,operators,values)
     print dbTuple
 
+def getReservationIDFromDate(date):
+    "Returns a list of reservation ids beginning or ending on the specified date"
+    date = sanitize(date)
 
+    db = Connection("root","password","scheduler").db
+    cursor = db.cursor()
+    query = "SELECT {} FROM {} WHERE {}"
+    cursor.execute
+    
+    
+    dbTuple = db.select("tbl_reservations",["id"],["from_datetime"],["="],)
+    
 #SQL commands for testing
 
 #Need to provide value for role id before can test; use the following:
