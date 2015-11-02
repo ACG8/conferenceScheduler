@@ -74,17 +74,22 @@ def filterLocations(building,date,room=None):
     print dbTuple
 
 def getReservationIDFromDate(date):
-    "Returns a list of reservation ids beginning or ending on the specified date"
+    """Returns a list of reservation ids beginning or ending on the specified date.
+    Input must be in YYYY-MM-DD format"""
     date = sanitize(date)
 
     db = Connection("root","password","scheduler").db
     cursor = db.cursor()
-    query = "SELECT {} FROM {} WHERE {}"
-    cursor.execute
-    
-    
-    dbTuple = db.select("tbl_reservations",["id"],["from_datetime"],["="],)
-    
+    query = """
+        SELECT id FROM tbl_reservations WHERE
+        ( CAST(from_datetime AS DATE) = CAST('{}' AS DATE) )
+        OR ( CAST(to_datetime AS DATE) = CAST('{}' AS DATE) );
+    """.format(date,date)
+    cursor.execute(query)
+    result = cursor.fetchall()
+    return result
+
+#2015-10-28
 #SQL commands for testing
 
 #Need to provide value for role id before can test; use the following:
