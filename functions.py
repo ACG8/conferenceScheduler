@@ -57,8 +57,8 @@ def createAccount(username,password,repass,fname,lname,email):
     db.commit()
     return (True, "Success - account created.")
 
-def filterLocations(building,date,room=None):
-    """Returns a set of tuples that match the filters: (room id, room name)
+def filterLocations(building,room=None):
+    """Returns a set of tuples that match the filters.
     Date must be in format YYYY/MM/DD"""
     #Sanitize inputs
     building = sanitize(building)
@@ -70,10 +70,10 @@ def filterLocations(building,date,room=None):
     values = [building] + ([room] if room else [])
 
     db = Connection("root","password","scheduler")
-    dbTuple = db.select("tbl_room_locations",["room","name"],attributes,operators,values)
-    print dbTuple
+    dbTuple = db.select("tbl_room_locations",["room","tbl_resources_id"],attributes,operators,values)
+    return dbTuple
 
-def getReservationIDFromDate(date):
+def getReservationFromDate(date):
     """Returns a list of reservation ids beginning or ending on the specified date.
     Input must be in YYYY-MM-DD format"""
     date = sanitize(date)
@@ -81,7 +81,7 @@ def getReservationIDFromDate(date):
     db = Connection("root","password","scheduler").db
     cursor = db.cursor()
     query = """
-        SELECT id FROM tbl_reservations WHERE
+        SELECT * FROM tbl_reservations WHERE
         ( CAST(from_datetime AS DATE) = CAST('{}' AS DATE) )
         OR ( CAST(to_datetime AS DATE) = CAST('{}' AS DATE) );
     """.format(date,date)
@@ -89,6 +89,20 @@ def getReservationIDFromDate(date):
     result = cursor.fetchall()
     return result
 
+def getReservationTimes(resourceID,date):
+    """Gets a list of all intervals during which resource is reserved on date"""
+    reservations = getReservationIDFromDate(date)
+    reservationTimes = [(r[2],r[3]) for r in reservations if r[1]==resourceID]
+    return reservationTimes
+
+def makeReservation(username,resourceID,start,end):
+    db = Connection("root","password","scheduler")
+    datetime = "\"{}\"".format(str(datetime.datetime.now()))
+    db.append("tbl_reservations",
+              ("'{}'".format(resourceID),"'{}'".format(start),"'{}'".format(end),"'{}'".format(user),"'{}'".format(datetime)),
+              ("tbl_resources_id","from_datetime","to_datetime","reserved_by","reserved_date")
+    )
+    db.commit()
 #2015-10-28
 #SQL commands for testing
 
