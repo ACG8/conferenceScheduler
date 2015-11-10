@@ -81,7 +81,7 @@ class Connection:
         if fields: fieldStatement = "({}) ".format(", ".join(fields))
         valuesStatement = ", ".join(tuples)
         statement = "INSERT INTO {} {}VALUES ({});".format(table,fieldStatement,valuesStatement)
-        print statement
+        print(statement)
         cursor  = self.db.cursor()
         cursor.execute(statement)
 

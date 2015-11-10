@@ -58,14 +58,12 @@ def createAccount(username,password,repass,fname,lname,email):
     return (True, "Success - account created.")
 
 def filterLocations(building,room=None):
-    """Returns a set of tuples that match the filters.
-    Date must be in format YYYY/MM/DD"""
+    """Returns a set of tuples that match the filters."""
     #Sanitize inputs
     building = sanitize(building)
-    date = sanitize(date)
     room = sanitize(room) if room else None
 
-    attributes = ["abbv"] + (["room"] if room else [])
+    attributes = ["tbl_buildings_id"] + (["room"] if room else [])
     operators = ["=" for a in attributes]
     values = [building] + ([room] if room else [])
 
@@ -103,6 +101,7 @@ def makeReservation(username,resourceID,start,end):
               ("tbl_resources_id","from_datetime","to_datetime","reserved_by","reserved_date")
     )
     db.commit()
+
 #2015-10-28
 #SQL commands for testing
 

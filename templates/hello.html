@@ -1,7 +1,7 @@
 <h1>hello</h1>
 
-{% for key in data %}
+{% for item in data %}
 <p>
-	{{key}}: {{data[key]}}
+	<a href='/rooms'>Room {{item[0]}}</a>
 </p>
 {% endfor %}
