@@ -64,6 +64,7 @@ def sign_up():
 		
 @app.route("/rooms")
 def rooms():
+        pass
 	
 	
 if __name__ == "__main__":
