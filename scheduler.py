@@ -62,9 +62,11 @@ def sign_up():
 	else:
 		return render_template("signup.html", data = account[1])
 		
-@app.route("/rooms")
-def rooms():
-	
+@app.route("/rooms/<int:roomid>")
+def rooms(roomid):
+	stuff = getChildResources(roomid)
+	print stuff
+	return render_template("rooms.html", data = stuff)
 	
 if __name__ == "__main__":
 	app.run()
