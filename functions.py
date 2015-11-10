@@ -103,6 +103,12 @@ def makeReservation(username,resourceID,start,end):
               ("tbl_resources_id","from_datetime","to_datetime","reserved_by","reserved_date")
     )
     db.commit()
+
+def getChildResources(resourceID):
+    db = Connection("root","password","scheduler")
+    dbTuple = db.select("tbl_resources",["id"],["root_parent_resource_id"],["="],[resourceID])
+    return dbTuple
+
 #2015-10-28
 #SQL commands for testing
 
