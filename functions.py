@@ -108,6 +108,11 @@ def getChildResources(resourceID):
     dbTuple = db.select("tbl_resources",["id"],["root_parent_resource_id"],["="],[resourceID])
     return dbTuple
 
+def getResourceName(resourceTypeID):
+    db = Connection("root","password","scheduler")
+    dbTuple = db.select("tbl_resc_type",["name"],["id"],["="],[resourceTypeID])
+    print dbTuple[0][0]
+
 #2015-10-28
 #SQL commands for testing
 

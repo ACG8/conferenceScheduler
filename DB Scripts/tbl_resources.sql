@@ -2,7 +2,7 @@ use scheduler;
 
 -- The column root_parent_resource_id should be nullable, or no row can be inserted due to the constraint.
 -- The value of parent_resource_id and root_parent_resource_id should be null by default and updated after resource is created.
-alter table tbl_resources modify root_parent_resource_id int(11) null;
+alter table tbl_resources alter root_parent_resource_id drop not null;
 
 -- If the ID of the first resource is not 1 after batch insert, delete them and reset the auto increment to 1 with following statement if you like.
 alter table tbl_resources auto_increment = 1;
