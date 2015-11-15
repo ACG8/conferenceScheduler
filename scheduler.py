@@ -19,7 +19,7 @@ def login():
 	print data
 	if checkSignIn(data['username'], data['password']):
 		currentUser = data['username']
-		return render_template("search.html")
+		return render_template("dashboard.html")
 	else:
 		return render_template("index.html")
 	
@@ -28,7 +28,14 @@ def login():
 @app.route("/signuppage")
 def sign_up_page():
 	return render_template("signup.html")
-	
+
+@app.route("/dashboardpage")
+def dashboard_page():
+	return render_template("dashboard.html")
+
+@app.route("/preferencespage")
+def preferences_page():
+	return render_template("preferences.html")
 
 @app.route("/search", methods=['POST'])
 def search():
