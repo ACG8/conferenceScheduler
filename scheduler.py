@@ -22,8 +22,7 @@ def login():
 		return render_template("dashboard.html")
 	else:
 		return render_template("index.html")
-	
-	
+
 # Signup page: Simply shows the signup page.
 @app.route("/signuppage")
 def sign_up_page():
