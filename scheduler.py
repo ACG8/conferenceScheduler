@@ -1,10 +1,10 @@
 from functions import *
-from flask import Flask, render_template, request
+from flask import Flask, render_template, request, session
 app = Flask(__name__)
+app.secret_key = "fdfiwdf8qfy82hcuiqch82ht2ghwrfqrjvb8rvg924f4ygheufqeu2g72hg24hfefw4g24"
 
-
-currentUser = ""
-date = ""
+#currentUser = ""
+#date = ""
 
 # Index page. Presents the sign in form when first presented.
 @app.route("/")
@@ -18,7 +18,13 @@ def login():
 	data = request.form
 	print data
 	if checkSignIn(data['username'], data['password']):
-		currentUser = data['username']
+		#print "A"
+		#print str(session)
+		session["username"] = data['username']
+		#print "B"
+		#currentUser = data['username']
+		#print currentUser
+		#print "test"
 		return render_template("dashboard.html")
 	else:
 		return render_template("index.html")
@@ -35,6 +41,9 @@ def dashboard_page():
 
 @app.route("/preferencespage")
 def preferences_page():
+	currentUser = session.get("username","")
+	#print "test"
+	print str(currentUser)
 	return render_template("preferences.html")
 
 @app.route("/search", methods=['POST'])
