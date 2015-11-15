@@ -18,13 +18,7 @@ def login():
 	data = request.form
 	print data
 	if checkSignIn(data['username'], data['password']):
-		#print "A"
-		#print str(session)
 		session["username"] = data['username']
-		#print "B"
-		#currentUser = data['username']
-		#print currentUser
-		#print "test"
 		return render_template("dashboard.html")
 	else:
 		return render_template("index.html")
@@ -41,9 +35,17 @@ def dashboard_page():
 
 @app.route("/preferencespage")
 def preferences_page():
-	currentUser = session.get("username","")
-	#print "test"
-	print str(currentUser)
+	return render_template("preferences.html")
+
+@app.route("/searchpage")
+def search_page():
+	return render_template("search.html")
+
+@app.route("/changePassword", methods=['POST'])
+def change_password():
+	data = request.form
+	if data["newpass"] and data["newpass"] == data["renewpass"]:
+		changePassword(session["username"],data["newpass"])
 	return render_template("preferences.html")
 
 @app.route("/search", methods=['POST'])
@@ -60,27 +62,23 @@ def search():
 		print rooms
 		return render_template("hello.html", data = rooms)
 
-
-@app.route("/searchpage")
-def search_page():
-	return render_template("search.html")
-	
-
-
 # Signup function: Gets result from account creation and if successful shows the hello page with data, else shows the signup page with error
 @app.route("/signup", methods=['POST'])
 def sign_up():
 	data = request.form
 	account = createAccount(data['username'],data['password'],data['passwordconfirmation'],data['firstname'],data['lastname'],data['email'])
 	if account[0]:
-		currentUser = data['username']
-		return render_template("search.html")
+		session["username"] = data['username']
+		return render_template("dashboard.html")
 	else:
 		return render_template("signup.html", data = account[1])
 		
 @app.route("/rooms/<int:roomid>")
 def rooms(roomid):
-	stuff = getChildResources(roomid)
+	print roomid
+	resourceid = getRoomResourcesID(roomid)
+	print resourceid
+	stuff = getChildResources(resourceid)
 	print stuff
 	return render_template("rooms.html", data = stuff)
 	

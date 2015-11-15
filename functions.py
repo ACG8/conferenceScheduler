@@ -113,6 +113,18 @@ def getResourceName(resourceTypeID):
     dbTuple = db.select("tbl_resc_type",["name"],["id"],["="],[resourceTypeID])
     print dbTuple[0][0]
 
+def getRoomResourceId(buildingID,roomID):
+    "Takes the id of a room and returns the id of the associated resource"
+    db = Connection("root","password","scheduler")
+    dbTuple = db.select("tbl_room_locations",["tbl_resources_id"],["tbl_buildings_id","room"],["=","="],[buildingID,roomID])
+    return dbTuple
+
+def changePassword(username,password):
+    "Changes username's password"
+    db = Connection("root","password","scheduler")
+    db.update("tbl_users",["password"],[password],["username"],["="],[username])
+    db.commit()
+
 #2015-10-28
 #SQL commands for testing
 
