@@ -38,7 +38,9 @@ def preferences_page():
 
 @app.route("/searchpage")
 def search_page():
-	return render_template("search.html")
+	res = getResourceTypes()
+	print str(res)
+	return render_template("search.html", data = getResourceTypes())
 
 @app.route("/changePassword", methods=['POST'])
 def change_password():

@@ -125,6 +125,12 @@ def changePassword(username,password):
     db.update("tbl_users",["password"],[password],["username"],["="],[username])
     db.commit()
 
+def getResourceTypes():
+    "Returns a list of resource ids and types"
+    db = Connection("root","password","scheduler")
+    dbTuple = db.selectAll("tbl_resc_type",["id","name"])
+    return dbTuple
+
 #2015-10-28
 #SQL commands for testing
 

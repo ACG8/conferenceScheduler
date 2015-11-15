@@ -21,6 +21,17 @@
 		<br>
 		<button>Search</button>
 	</form>
+
+	<h1>Required Resources</h1>
+	{% for item in data %}
+	<div class="checkbox">
+	<label>
+    <input type="checkbox" name="rescType {{item[0]}}" value="edit"> {{item[1]}}
+	</label>
+	</div>
+	{% endfor %}
 </body>
- 
+
+
+
 </html>
