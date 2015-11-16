@@ -106,8 +106,7 @@ def makeReservation(username,resourceID,start,end):
 def getChildResources(resourceID,outputType):
     db = Connection("root","password","scheduler")
     dbTuple = db.select("tbl_resources",[outputType],["root_parent_resource_id"],["="],[resourceID])
-    print dbTuple
-    return dbTuple
+    return [t[0] for t in dbTuple]
 
 def getResourceName(resourceTypeID):
     db = Connection("root","password","scheduler")
@@ -149,6 +148,23 @@ def getReservations(username):
     db = Connection("root","password","scheduler")
     dbTuple = db.select("tbl_reservations",["tbl_resources_id","from_datetime","to_datetime"],["reserved_by"],["="],[username])
     return dbTuple
+
+def getResourceLocation(resourceID):
+    "Returns the building,roomid of a resource (specifically, a room)"
+    db = Connection("root","password","scheduler")
+    dbTuple = db.select("tbl_room_locations",["tbl_buildings_id","room"],["tbl_resources_id"],["="],[resourceID])
+    return dbTuple[0]
+
+def checkHasResources(roomID,rscTypeIDList):
+    "Checks whether a roomid has all resources listed."
+    resourceTypes = getChildResources(roomID,"type_id")
+    print "a"
+    print resourceTypes
+    print "b"
+    for rscT in rscTypeIDList:
+        if not rscT in resourceTypes:
+            return False
+    return True
 
 #2015-10-28
 #SQL commands for testing

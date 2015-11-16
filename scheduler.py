@@ -44,7 +44,6 @@ def reservations_page():
 @app.route("/searchpage")
 def search_page():
 	res = getResourceTypes()
-	print str(res)
 	return render_template("search.html", resourceTypes = getResourceTypes(), buildings = getBuildings())
 
 @app.route("/changePassword", methods=['POST'])
@@ -57,17 +56,19 @@ def change_password():
 @app.route("/search", methods=['POST'])
 def search():
 	data = request.form
-	print data['building']
 	date = data['date']
-	if data['room'] == '':
-		rooms = filterLocations(data['building'])
-		print rooms
-		return render_template("rooms.html", building = (getBuildingName(data["building"]),data["building"]), rooms = rooms)
+	resourceTypeIDs = getResourceTypes()
+	filterResources = [rType[0] for rType in resourceTypeIDs if data.get("rescType "+str(rType[0]))]
+	rooms = filterLocations(data['building'])
+	print rooms
+	rooms = [room for room in rooms if checkHasResources(room[1],filterResources)]
+	return render_template("rooms.html", building = (getBuildingName(data["building"]),data["building"]), rooms = rooms)
+	"""
 	else:
 		rooms = filterLocations(data['building'], data['room'])
 		print rooms
 		return render_template("rooms.html", data = rooms)
-
+	"""
 # Signup function: Gets result from account creation and if successful shows the hello page with data, else shows the signup page with error
 @app.route("/signup", methods=['POST'])
 def sign_up():
@@ -82,8 +83,10 @@ def sign_up():
 @app.route("/rooms/<resourceid>")
 def rooms(resourceid):
 	children = getChildResources(resourceid,"type_id")
-	children = [getResourceName(r[0]) for r in children]
-	return render_template("resource.html", resource = resourceid , children = children)
+	children = [getResourceName(r) for r in children]
+	rscText = getResourceLocation(resourceid)
+	rscText = (getBuildingName(rscText[0]), rscText[1])
+	return render_template("resource.html", resourcetext = rscText, resource = resourceid , children = children)
 	
 if __name__ == "__main__":
 	app.run()

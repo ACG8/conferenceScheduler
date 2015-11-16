@@ -93,16 +93,6 @@ def sanitize(statement):
     "Sanitizes a statement by removing quotes and semicolns to prevent SQL injection attacks"
     return statement.replace(";","").replace("'","").replace("\"","")
 
-"""
-def connect():
-    "Connect to the database of user's choice"
-    usr = raw_input("User: ")
-    passd = getpass.getpass()
-    database = raw_input("Database: ")
-    db = MySQLdb.connect(host="localhost", user=usr, passwd=passd, db=database)
-    return db
-"""
-
 def getFilter(attributes,operators,values):
     "Returns a properly formatted where clause"
     #Make sure all inputs have same length

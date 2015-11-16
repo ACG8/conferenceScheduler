@@ -25,16 +25,16 @@
 		<input type="text" name="room">
 		<br>
 		<button>Search</button>
-	</form>
 
 	<h1>Required Resources</h1>
 	{% for item in resourceTypes %}
 	<div class="checkbox">
 	<label>
-    <input type="checkbox" name="rescType {{item[0]}}" value="edit"> {{item[1]}}
+    <input type="checkbox" name="rescType {{item[0]}}" value="True"> {{item[1]}}
 	</label>
 	</div>
 	{% endfor %}
+	</form>
 </body>
 
 
