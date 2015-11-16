@@ -112,6 +112,7 @@ def getResourceName(resourceTypeID):
     db = Connection("root","password","scheduler")
     dbTuple = db.select("tbl_resc_type",["name"],["id"],["="],[resourceTypeID])
     print dbTuple[0][0]
+    return dbTuple
 
 def getRoomResourceId(buildingID,roomID):
     "Takes the id of a room and returns the id of the associated resource"
@@ -135,6 +136,12 @@ def getBuildings():
     "Returns a list of buildings"
     db = Connection("root","password","scheduler")
     dbTuple = db.selectAll("tbl_buildings",["id","name"])
+    return dbTuple
+
+def getReservations(username):
+    "Returns all reservations for username"
+    db = Connection("root","password","scheduler")
+    dbTuple = db.select("tbl_reservations",["tbl_resources_id","from_datetime","to_datetime"],["reserved_by"],["="],[username])
     return dbTuple
 #2015-10-28
 #SQL commands for testing

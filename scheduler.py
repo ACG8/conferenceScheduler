@@ -36,6 +36,10 @@ def dashboard_page():
 def preferences_page():
 	return render_template("preferences.html")
 
+@app.route("/reservationspage")
+def reservations_page():
+	return render_template("reservations.html", reservations = getReservations(session["username"]))
+
 @app.route("/searchpage")
 def search_page():
 	res = getResourceTypes()

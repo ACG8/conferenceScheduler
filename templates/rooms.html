@@ -1,7 +1,11 @@
+<head>
+<a href="/dashboardpage"><button style="background-color:lightblue">Return</button></a>
 <h1>Rooms</h1>
-
+</head>
+<body>
 {% for item in data %}
 <p>
 	<a href='/rooms/{{item[0]}}'>Item {{item[0]}}</a>
 </p>
 {% endfor %}
+</body>
