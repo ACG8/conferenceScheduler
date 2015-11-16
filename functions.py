@@ -106,6 +106,7 @@ def makeReservation(username,resourceID,start,end):
 def getChildResources(resourceID):
     db = Connection("root","password","scheduler")
     dbTuple = db.select("tbl_resources",["id"],["root_parent_resource_id"],["="],[resourceID])
+    print dbTuple
     return dbTuple
 
 def getResourceName(resourceTypeID):
@@ -137,6 +138,11 @@ def getBuildings():
     db = Connection("root","password","scheduler")
     dbTuple = db.selectAll("tbl_buildings",["id","name"])
     return dbTuple
+
+def getBuildingName(bId):
+    db = Connection("root","password","scheduler")
+    dbTuple = db.select("tbl_buildings",["name"],["id"],["="],[bId])
+    return dbTuple[0][0]
 
 def getReservations(username):
     "Returns all reservations for username"

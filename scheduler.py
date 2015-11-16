@@ -62,7 +62,7 @@ def search():
 	if data['room'] == '':
 		rooms = filterLocations(data['building'])
 		print rooms
-		return render_template("rooms.html", data = rooms)
+		return render_template("rooms.html", building = (getBuildingName(data["building"]),data["building"]), rooms = rooms)
 	else:
 		rooms = filterLocations(data['building'], data['room'])
 		print rooms
@@ -79,10 +79,10 @@ def sign_up():
 	else:
 		return render_template("signup.html", data = account[1])
 		
-@app.route("/rooms/<int:roomid>")
-def rooms(roomid):
+@app.route("/rooms/<buildingid>/<roomid>")
+def rooms(buildingid,roomid):
 	print roomid
-	resourceid = getRoomResourcesID(roomid)
+	resourceid = getRoomResourcesID(buildingid,roomid)
 	print resourceid
 	stuff = getChildResources(resourceid)
 	print stuff

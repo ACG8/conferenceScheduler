@@ -8,10 +8,10 @@
 <body>
 	<a href="/"><button style="background-color:lightcoral">Log Out</button></a>
 	<a href="/dashboardpage"><button style="background-color:lightblue">Return</button></a>
-	<h1>Rooms</h1>
-	{% for item in data %}
+	<h1>{{building[0]}}</h1>
+	{% for item in rooms %}
 	<p>
-		<a href='/rooms/{{item[0]}}'>Item {{item[0]}}</a>
+		<a href='/rooms/{{building[1]}}/{{item[1]}}'>{{item[0]}}</a>
 	</p>
 	{% endfor %}
 </body>
