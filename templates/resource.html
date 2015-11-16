@@ -8,10 +8,10 @@
 <body>
 	<a href="/"><button style="background-color:lightcoral">Log Out</button></a>
 	<a href="/dashboardpage"><button style="background-color:lightblue">Return</button></a>
-	<h1>{{building[0]}}</h1>
-	{% for item in rooms %}
+	<h1>{{resource}}</h1>
+	{% for item in children %}
 	<p>
-		<a href='/rooms/{{item[1]}}'>{{item[0]}}</a>
+		{{item[0]}}
 	</p>
 	{% endfor %}
 </body>

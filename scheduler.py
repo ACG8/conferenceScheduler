@@ -79,14 +79,11 @@ def sign_up():
 	else:
 		return render_template("signup.html", data = account[1])
 		
-@app.route("/rooms/<buildingid>/<roomid>")
-def rooms(buildingid,roomid):
-	print roomid
-	resourceid = getRoomResourcesID(buildingid,roomid)
-	print resourceid
-	stuff = getChildResources(resourceid)
-	print stuff
-	return render_template("rooms.html", data = stuff)
+@app.route("/rooms/<resourceid>")
+def rooms(resourceid):
+	children = getChildResources(resourceid,"type_id")
+	children = [getResourceName(r[0]) for r in children]
+	return render_template("resource.html", resource = resourceid , children = children)
 	
 if __name__ == "__main__":
 	app.run()
