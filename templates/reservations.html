@@ -1,13 +1,13 @@
 <!DOCTYPE html>
 <html lang="en">
- 
- <a href="/dashboardpage"><button style="background-color:lightblue">Return</button></a>
 
 <head>
     <title>My Reservations</title>
 </head>
 
 <body>
+	<a href="/"><button style="background-color:lightcoral">Log Out</button></a>
+	<a href="/dashboardpage"><button style="background-color:lightblue">Return</button></a>
 {% for item in reservations %}
 <p>
 	<a href='/reservations/{{item[0]}}'>Reservation no. {{item[0]}} from {{item[1]}} to {{item[2]}}</a>

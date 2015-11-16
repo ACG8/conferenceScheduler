@@ -1,11 +1,17 @@
+<!DOCTYPE html>
+<html lang="en">
+ 
 <head>
-<a href="/dashboardpage"><button style="background-color:lightblue">Return</button></a>
-<h1>Rooms</h1>
+    <title>Conference Scheduler</title>
 </head>
+
 <body>
-{% for item in data %}
-<p>
-	<a href='/rooms/{{item[0]}}'>Item {{item[0]}}</a>
-</p>
-{% endfor %}
+	<a href="/"><button style="background-color:lightcoral">Log Out</button></a>
+	<a href="/dashboardpage"><button style="background-color:lightblue">Return</button></a>
+	<h1>Rooms</h1>
+	{% for item in data %}
+	<p>
+		<a href='/rooms/{{item[0]}}'>Item {{item[0]}}</a>
+	</p>
+	{% endfor %}
 </body>

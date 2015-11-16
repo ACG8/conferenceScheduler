@@ -9,6 +9,7 @@ app.secret_key = "fdfiwdf8qfy82hcuiqch82ht2ghwrfqrjvb8rvg924f4ygheufqeu2g72hg24h
 # Index page. Presents the sign in form when first presented.
 @app.route("/")
 def main():
+	#Should clear session here TODO
 	return render_template("index.html")	
 
 

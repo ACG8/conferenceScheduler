@@ -143,6 +143,7 @@ def getReservations(username):
     db = Connection("root","password","scheduler")
     dbTuple = db.select("tbl_reservations",["tbl_resources_id","from_datetime","to_datetime"],["reserved_by"],["="],[username])
     return dbTuple
+
 #2015-10-28
 #SQL commands for testing
 
