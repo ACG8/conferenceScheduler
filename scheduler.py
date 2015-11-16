@@ -57,11 +57,11 @@ def search():
 	if data['room'] == '':
 		rooms = filterLocations(data['building'])
 		print rooms
-		return render_template("hello.html", data = rooms)
+		return render_template("rooms.html", data = rooms)
 	else:
 		rooms = filterLocations(data['building'], data['room'])
 		print rooms
-		return render_template("hello.html", data = rooms)
+		return render_template("rooms.html", data = rooms)
 
 # Signup function: Gets result from account creation and if successful shows the hello page with data, else shows the signup page with error
 @app.route("/signup", methods=['POST'])
