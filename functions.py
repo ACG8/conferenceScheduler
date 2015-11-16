@@ -131,6 +131,11 @@ def getResourceTypes():
     dbTuple = db.selectAll("tbl_resc_type",["id","name"])
     return dbTuple
 
+def getBuildings():
+    "Returns a list of buildings"
+    db = Connection("root","password","scheduler")
+    dbTuple = db.selectAll("tbl_buildings",["id","name"])
+    return dbTuple
 #2015-10-28
 #SQL commands for testing
 
