@@ -106,7 +106,7 @@ def reserve():
 	currentuser = session['username']
 	resourceid = session['rid']
 	makeReservation(currentuser,resourceid,startdate,enddate)
-	return render_template("reservepage.html")	
+	return render_template("reservations.html", reservations = getReservations(session["username"]))
 
 if __name__ == "__main__":
 	app.run()
