@@ -91,7 +91,7 @@ def rooms(resourceid):
 	reservations = getReservationFromDate(session['date'])
 	items = []
 	for item in reservations:
-		items.append(item[1].time().hour)
+		items.append(item[2].time().hour)
 	return render_template("resource.html", resourcetext = rscText, resource = resourceid , children = children, reservations = reservations, date = session['date'], items = items)
 
 @app.route("/rooms/reserve", methods=['POST'])
