@@ -95,10 +95,10 @@ def getReservationTimes(resourceID,date):
 
 def makeReservation(username,resourceID,start,end):
     db = Connection("root","password","scheduler")
-    datetime = "\"{}\"".format(str(datetime.datetime.now()))
+    date = "\"{}\"".format(str(datetime.datetime.now()))
     db.append("tbl_reservations",
-              ("'{}'".format(resourceID),"'{}'".format(start),"'{}'".format(end),"'{}'".format(user),"'{}'".format(datetime)),
-              ("tbl_resources_id","from_datetime","to_datetime","reserved_by","reserved_date")
+              ("'{}'".format(resourceID),"'{}'".format(start),"'{}'".format(end),"'{}'".format(username),"'{}'".format(date)),
+              ("id","from_datetime","to_datetime","reserved_by","reserved_date")
     )
     db.commit()
 
@@ -165,6 +165,7 @@ def checkHasResources(roomID,rscTypeIDList):
         if not rscT in resourceTypes:
             return False
     return True
+
 
 #2015-10-28
 #SQL commands for testing

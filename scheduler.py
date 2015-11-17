@@ -4,7 +4,7 @@ app = Flask(__name__)
 app.secret_key = "fdfiwdf8qfy82hcuiqch82ht2ghwrfqrjvb8rvg924f4ygheufqeu2g72hg24hfefw4g24"
 
 #currentUser = ""
-#date = ""
+date = ""
 
 # Index page. Presents the sign in form when first presented.
 @app.route("/")
@@ -40,6 +40,10 @@ def preferences_page():
 @app.route("/reservationspage")
 def reservations_page():
 	return render_template("reservations.html", reservations = getReservations(session["username"]))
+	
+@app.route("/reserve")
+def reserve_page():
+	return render_template('reservepage.html')
 
 @app.route("/searchpage")
 def search_page():
@@ -55,13 +59,13 @@ def change_password():
 
 @app.route("/search", methods=['POST'])
 def search():
+	global date
 	data = request.form
-	date = data['date']
+	session['date'] = data['date']
 	resourceTypeIDs = getResourceTypes()
-	filterResources = [rType[0] for rType in resourceTypeIDs if data.get("rescType "+str(rType[0]))]
+	filterResources = [rType[0] for rType in resourceTypeIDs if data.get("rescType " + str(rType[0]))]
 	rooms = filterLocations(data['building'])
-	print rooms
-	rooms = [room for room in rooms if checkHasResources(room[1],filterResources)]
+	rooms = [room for room in rooms if checkHasResources(str(room[0]),filterResources)]
 	return render_template("rooms.html", building = (getBuildingName(data["building"]),data["building"]), rooms = rooms)
 	"""
 	else:
@@ -82,11 +86,28 @@ def sign_up():
 		
 @app.route("/rooms/<resourceid>")
 def rooms(resourceid):
+	session['rid'] = resourceid
+	print session['rid']
 	children = getChildResources(resourceid,"type_id")
 	children = [getResourceName(r) for r in children]
 	rscText = getResourceLocation(resourceid)
 	rscText = (getBuildingName(rscText[0]), rscText[1])
-	return render_template("resource.html", resourcetext = rscText, resource = resourceid , children = children)
-	
+	reservations = getReservationFromDate(session['date'])
+	items = []
+	for item in reservations:
+		items.append(item[1].time().hour)
+	return render_template("resource.html", resourcetext = rscText, resource = resourceid , children = children, reservations = reservations, date = session['date'], items = items)
+
+@app.route("/rooms/reserve", methods=['POST'])
+def reserve():
+	data = request.form
+	startdate = str(session['date']) + ' ' + str(data['starttime'])
+	enddate = str(session['date']) + ' ' + str(data['endtime'])
+	currentuser = session['username']
+	resourceid = session['rid']
+	print makeReservation(currentuser,resourceid,startdate,enddate)
+	return render_template("reservepage.html")	
+
 if __name__ == "__main__":
 	app.run()
+	

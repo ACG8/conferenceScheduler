@@ -27,7 +27,7 @@
 		<button>Search</button>
 
 	<h1>Required Resources</h1>
-	{% for item in resourceTypes %}
+	{% for item in resourceTypes[1:] %}
 	<div class="checkbox">
 	<label>
     <input type="checkbox" name="rescType {{item[0]}}" value="True"> {{item[1]}}

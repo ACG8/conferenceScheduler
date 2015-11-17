@@ -14,4 +14,32 @@
 		{{item[0]}}
 	</p>
 	{% endfor %}
+	
+	<br>
+	<br>
+	<br>
+	
+	<h2>Reserve</h2>
+	<h4>{{date}}</h4>
+	
+	<form action="reserve" method="POST">
+	
+		
+		<p>Times Reserved</p>
+		{% for x in items %}
+			{{x}}:00
+		{% endfor %}
+		<br>
+		Start time (hh:mm:ss example 08:30:00):<br>
+		<input type="text" name="starttime">
+		
+		<br>
+		
+		End time (Same format as above, please use 30, 60, 90, or 120):<br>
+		<input type="text" name="endtime">
+		
+		<br>
+		<button>Reserve</button>
+	
+	</form>
 </body>
