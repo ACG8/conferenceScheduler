@@ -4,7 +4,7 @@ app = Flask(__name__)
 app.secret_key = "fdfiwdf8qfy82hcuiqch82ht2ghwrfqrjvb8rvg924f4ygheufqeu2g72hg24hfefw4g24"
 
 #currentUser = ""
-date = ""
+#date = ""
 
 # Index page. Presents the sign in form when first presented.
 @app.route("/")
@@ -100,11 +100,12 @@ def rooms(resourceid):
 @app.route("/rooms/reserve", methods=['POST'])
 def reserve():
 	data = request.form
-	startdate = str(session['date']) + ' ' + str(data['starttime'])
-	enddate = str(session['date']) + ' ' + str(data['endtime'])
+	print data['starttime']
+	startdate = str(session['date']) + ' ' + str(data['starttime'] + ':00')
+	enddate = str(session['date']) + ' ' + str(data['endtime'] + ':00')
 	currentuser = session['username']
 	resourceid = session['rid']
-	print makeReservation(currentuser,resourceid,startdate,enddate)
+	makeReservation(currentuser,resourceid,startdate,enddate)
 	return render_template("reservepage.html")	
 
 if __name__ == "__main__":
