@@ -146,8 +146,13 @@ def getBuildingName(bId):
 def getReservations(username):
     "Returns all reservations for username"
     db = Connection("root","password","scheduler")
-    dbTuple = db.select("tbl_reservations",["tbl_resources_id","from_datetime","to_datetime"],["reserved_by"],["="],[username])
+    dbTuple = db.select("tbl_reservations",["id","tbl_resources_id","from_datetime","to_datetime"],["reserved_by"],["="],[username])
     return dbTuple
+
+def deleteReservation(Rid):
+    db = Connection("root","password","scheduler")
+    db.delete("tbl_reservations",["id"],["="],[Rid])
+    db.commit()
 
 def getResourceLocation(resourceID):
     "Returns the building,roomid of a resource (specifically, a room)"

@@ -8,9 +8,10 @@
 <body>
 	<a href="/"><button style="background-color:lightcoral">Log Out</button></a>
 	<a href="/dashboardpage"><button style="background-color:lightblue">Return</button></a>
+	Click on reservation to delete it
 {% for item in reservations %}
 <p>
-	<a href='/reservations/{{item[0]}}'>Reservation for resource no. {{item[0]}} from {{item[1]}} to {{item[2]}}</a>
+	<a href='/reservations/{{item[0]}}'>Reservation for resource no. {{item[1]}} from {{item[2]}} to {{item[3]}}</a>
 </p>
 {% endfor %}
 </body>

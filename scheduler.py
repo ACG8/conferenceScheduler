@@ -105,6 +105,11 @@ def reserve():
 	makeReservation(currentuser,resourceid,startdate,enddate)
 	return render_template("reservations.html", reservations = getReservations(session["username"]))
 
+@app.route("/reservations/<reservationid>")
+def unreserve(reservationid):
+	deleteReservation(reservationid)
+	return render_template("reservations.html", reservations = getReservations(session["username"]))
+
 if __name__ == "__main__":
 	app.run()
 	
