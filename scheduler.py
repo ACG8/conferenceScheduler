@@ -66,12 +66,7 @@ def search():
 	rooms = filterLocations(data['building'])
 	rooms = [room for room in rooms if checkHasResources(room[1],filterResources)]
 	return render_template("rooms.html", building = (getBuildingName(data["building"]),data["building"]), rooms = rooms)
-	"""
-	else:
-		rooms = filterLocations(data['building'], data['room'])
-		print rooms
-		return render_template("rooms.html", data = rooms)
-	"""
+
 # Signup function: Gets result from account creation and if successful shows the hello page with data, else shows the signup page with error
 @app.route("/signup", methods=['POST'])
 def sign_up():
