@@ -97,7 +97,7 @@ def makeReservation(username,resourceID,start,end):
     db = Connection("root","password","scheduler")
     date = "\"{}\"".format(str(datetime.datetime.now()))
     db.append("tbl_reservations",
-              ("'{}'".format(resourceID),"'{}'".format(start),"'{}'".format(end),"'{}'".format(username),"'{}'".format(date)),
+              ("{}".format(resourceID),"'{}'".format(start),"'{}'".format(end),"'{}'".format(username),"{}".format(date)),
               ("tbl_resources_id","from_datetime","to_datetime","reserved_by","reserved_date")
     )
     db.commit()
