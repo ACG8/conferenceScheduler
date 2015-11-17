@@ -83,7 +83,6 @@ def sign_up():
 @app.route("/rooms/<resourceid>")
 def rooms(resourceid):
 	session['rid'] = resourceid
-	print session['rid']
 	children = getChildResources(resourceid,"type_id")
 	children = [getResourceName(r) for r in children]
 	rscText = getResourceLocation(resourceid)
@@ -91,7 +90,9 @@ def rooms(resourceid):
 	reservations = getReservationFromDate(session['date'])
 	items = []
 	for item in reservations:
-		items.append(item[2].time().hour)
+		items.append(str(item[2].time().hour) + ":" + str(item[2].time().minute) + " - " + str(item[3].time().hour) + ":" + str(item[3].time().minute))
+		print "items"
+		print items
 	return render_template("resource.html", resourcetext = rscText, resource = resourceid , children = children, reservations = reservations, date = session['date'], items = items)
 
 @app.route("/rooms/reserve", methods=['POST'])

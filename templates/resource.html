@@ -26,9 +26,11 @@
 	
 		
 		<p>Times Reserved</p>
+		<ul>
 		{% for x in items %}
-			{{x}}:00
+			<li>{{x}}</li>
 		{% endfor %}
+		</ul>
 		<br>
 		Start time (hh:mm:ss example 08:30:00):<br>
 		<input type="time" name="starttime">
