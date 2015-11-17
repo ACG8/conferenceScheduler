@@ -59,13 +59,12 @@ def change_password():
 
 @app.route("/search", methods=['POST'])
 def search():
-	global date
 	data = request.form
 	session['date'] = data['date']
 	resourceTypeIDs = getResourceTypes()
 	filterResources = [rType[0] for rType in resourceTypeIDs if data.get("rescType " + str(rType[0]))]
 	rooms = filterLocations(data['building'])
-	rooms = [room for room in rooms if checkHasResources(str(room[0]),filterResources)]
+	rooms = [room for room in rooms if checkHasResources(room[1],filterResources)]
 	return render_template("rooms.html", building = (getBuildingName(data["building"]),data["building"]), rooms = rooms)
 	"""
 	else:
