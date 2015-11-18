@@ -160,6 +160,12 @@ def getResourceLocation(resourceID):
     dbTuple = db.select("tbl_room_locations",["tbl_buildings_id","room"],["tbl_resources_id"],["="],[resourceID])
     return dbTuple[0]
 
+def getPasswordAndEmail(username):
+    "Returns username's password and email (in that order)"
+    db = Connection("root","password","scheduler")
+    dbTuple = db.select("tbl_users",["password","mail"],["username"],["="],[username])
+    return dbTuple[0]
+
 def checkHasResources(roomID,rscTypeIDList):
     "Checks whether a roomid has all resources listed."
     resourceTypes = getChildResources(roomID,"type_id")
