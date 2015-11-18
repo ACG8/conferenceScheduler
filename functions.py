@@ -177,7 +177,6 @@ def checkHasResources(roomID,rscTypeIDList):
             return False
     return True
 
-
 #2015-10-28
 #SQL commands for testing
 

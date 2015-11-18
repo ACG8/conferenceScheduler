@@ -1,6 +1,7 @@
 from functions import *
 from flask import Flask, render_template, request, session
-import smtplib 
+from email.mime.text import MIMEText
+from subprocess import Popen, PIPE
 app = Flask(__name__)
 app.secret_key = "fdfiwdf8qfy82hcuiqch82ht2ghwrfqrjvb8rvg924f4ygheufqeu2g72hg24hfefw4g24"
 
@@ -32,7 +33,15 @@ def forgot_password():
 @app.route("/forgot", methods=['POST'])
 def forgot():
 	data = request.form
-	print data
+	info = getPasswordAndEmail(data['username'])
+	
+	msg = MIMEText("Your password is " + info[0])
+	msg["From"] = "conference@forgot.com"
+	msg["To"] = info[1]
+	msg["Subject"] = "Forgot Password"
+	p = Popen(["/usr/sbin/sendmail", "-t", "-oi"], stdin=PIPE)
+	p.communicate(msg.as_string()) 
+	
 	return render_template("index.html")
 
 # Signup page: Simply shows the signup page.
