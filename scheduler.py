@@ -1,5 +1,6 @@
 from functions import *
 from flask import Flask, render_template, request, session
+import smtplib 
 app = Flask(__name__)
 app.secret_key = "fdfiwdf8qfy82hcuiqch82ht2ghwrfqrjvb8rvg924f4ygheufqeu2g72hg24hfefw4g24"
 
@@ -23,6 +24,16 @@ def login():
 		return render_template("dashboard.html")
 	else:
 		return render_template("index.html")
+		
+@app.route("/forgotpassword")
+def forgot_password():
+	return render_template("forgotpassword.html")
+	
+@app.route("/forgot", methods=['POST'])
+def forgot():
+	data = request.form
+	print data
+	return render_template("index.html")
 
 # Signup page: Simply shows the signup page.
 @app.route("/signuppage")
