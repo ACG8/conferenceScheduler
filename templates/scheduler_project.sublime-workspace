@@ -4,6 +4,14 @@
 		"selected_items":
 		[
 			[
+				"getR",
+				"getResourceLocation"
+			],
+			[
+				"res",
+				"reservationid"
+			],
+			[
 				"rscT",
 				"rscT"
 			],
@@ -30,10 +38,6 @@
 			[
 				"pr",
 				"print"
-			],
-			[
-				"res",
-				"reservations"
 			],
 			[
 				"reserv",
@@ -195,7 +199,7 @@
 			"file": "/C/Users/Ananda/Documents/conferenceScheduler/scheduler.py",
 			"settings":
 			{
-				"buffer_size": 3251,
+				"buffer_size": 4631,
 				"line_ending": "Windows"
 			}
 		},
@@ -211,7 +215,7 @@
 			"file": "/C/Users/Ananda/Documents/conferenceScheduler/functions.py",
 			"settings":
 			{
-				"buffer_size": 6550,
+				"buffer_size": 6953,
 				"line_ending": "Windows"
 			}
 		},
@@ -219,7 +223,7 @@
 			"file": "resource.html",
 			"settings":
 			{
-				"buffer_size": 390,
+				"buffer_size": 850,
 				"line_ending": "Windows"
 			}
 		},
@@ -227,7 +231,7 @@
 			"file": "reservations.html",
 			"settings":
 			{
-				"buffer_size": 420,
+				"buffer_size": 506,
 				"line_ending": "Windows"
 			}
 		},
@@ -251,7 +255,7 @@
 			"file": "index.html",
 			"settings":
 			{
-				"buffer_size": 463,
+				"buffer_size": 564,
 				"line_ending": "Windows"
 			}
 		},
@@ -267,7 +271,7 @@
 			"file": "search.html",
 			"settings":
 			{
-				"buffer_size": 874,
+				"buffer_size": 805,
 				"line_ending": "Windows"
 			}
 		},
@@ -312,6 +316,7 @@
 	},
 	"file_history":
 	[
+		"/C/Users/Ananda/Documents/conferenceScheduler/templates/reservepage.html",
 		"/C/Users/Ananda/Documents/conferenceScheduler/functions.py",
 		"/C/Users/Ananda/Documents/conferenceScheduler/templates/hello.html",
 		"/C/Users/Ananda/Documents/Mage-Wars/GameDatabase/9acef3d0-efa8-4d3f-a10c-54812baecdda/scripts/boneyard.py",
@@ -346,6 +351,7 @@
 		"case_sensitive": false,
 		"find_history":
 		[
+			"getReservations",
 			"childResources",
 			"print",
 			"rscIDList",
@@ -472,8 +478,7 @@
 			"dice",
 			"computeDice",
 			"def discard",
-			"discard",
-			"destroy"
+			"discard"
 		],
 		"highlight": true,
 		"in_selection": false,
@@ -491,7 +496,7 @@
 	"groups":
 	[
 		{
-			"selected": 2,
+			"selected": 1,
 			"sheets":
 			[
 				{
@@ -499,15 +504,15 @@
 					"file": "/C/Users/Ananda/Documents/conferenceScheduler/scheduler.py",
 					"settings":
 					{
-						"buffer_size": 3251,
+						"buffer_size": 4631,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								2568,
-								2568
+								0,
+								0
 							]
 						],
 						"settings":
@@ -516,7 +521,7 @@
 							"translate_tabs_to_spaces": false
 						},
 						"translation.x": 0.0,
-						"translation.y": 689.0,
+						"translation.y": 332.0,
 						"zoom_level": 1.0
 					},
 					"type": "text"
@@ -544,7 +549,7 @@
 							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 720.0,
+						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
 					"type": "text"
@@ -554,15 +559,15 @@
 					"file": "/C/Users/Ananda/Documents/conferenceScheduler/functions.py",
 					"settings":
 					{
-						"buffer_size": 6550,
+						"buffer_size": 6953,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								4054,
-								4054
+								6366,
+								6366
 							]
 						],
 						"settings":
@@ -572,7 +577,7 @@
 							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 2100.0,
+						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
 					"type": "text"
@@ -582,23 +587,24 @@
 					"file": "resource.html",
 					"settings":
 					{
-						"buffer_size": 390,
+						"buffer_size": 850,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								390,
-								390
+								0,
+								0
 							]
 						],
 						"settings":
 						{
-							"syntax": "Packages/HTML/HTML.tmLanguage"
+							"syntax": "Packages/HTML/HTML.tmLanguage",
+							"translate_tabs_to_spaces": false
 						},
 						"translation.x": 0.0,
-						"translation.y": 0.0,
+						"translation.y": 15.0,
 						"zoom_level": 1.0
 					},
 					"type": "text"
@@ -608,15 +614,15 @@
 					"file": "reservations.html",
 					"settings":
 					{
-						"buffer_size": 420,
+						"buffer_size": 506,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								169,
-								92
+								442,
+								442
 							]
 						],
 						"settings":
@@ -642,8 +648,8 @@
 						"selection":
 						[
 							[
-								176,
-								176
+								287,
+								267
 							]
 						],
 						"settings":
@@ -689,15 +695,15 @@
 					"file": "index.html",
 					"settings":
 					{
-						"buffer_size": 463,
+						"buffer_size": 564,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								98,
-								98
+								0,
+								0
 							]
 						],
 						"settings":
@@ -723,8 +729,8 @@
 						"selection":
 						[
 							[
-								97,
-								97
+								387,
+								387
 							]
 						],
 						"settings":
@@ -742,15 +748,15 @@
 					"file": "search.html",
 					"settings":
 					{
-						"buffer_size": 874,
+						"buffer_size": 805,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								855,
-								855
+								596,
+								596
 							]
 						],
 						"settings":

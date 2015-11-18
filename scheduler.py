@@ -110,7 +110,11 @@ def rooms(resourceid):
 	reservations = getReservationFromDate(session['date'])
 	items = []
 	for item in reservations:
-		items.append(str(item[2].time().hour) + ":" + str(item[2].time().minute) + " - " + str(item[3].time().hour) + ":" + str(item[3].time().minute))
+		print item[1]
+		print resourceid
+
+		if int(item[1]) == int(resourceid):
+			items.append(str(item[2].time().hour) + ":" + str(item[2].time().minute) + " - " + str(item[3].time().hour) + ":" + str(item[3].time().minute))
 		print "items"
 		print items
 	return render_template("resource.html", resourcetext = rscText, resource = resourceid , children = children, reservations = reservations, date = session['date'], items = items)
