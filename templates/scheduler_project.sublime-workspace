@@ -199,7 +199,7 @@
 			"file": "/C/Users/Ananda/Documents/conferenceScheduler/scheduler.py",
 			"settings":
 			{
-				"buffer_size": 4631,
+				"buffer_size": 5036,
 				"line_ending": "Windows"
 			}
 		},
@@ -215,7 +215,7 @@
 			"file": "/C/Users/Ananda/Documents/conferenceScheduler/functions.py",
 			"settings":
 			{
-				"buffer_size": 6953,
+				"buffer_size": 6952,
 				"line_ending": "Windows"
 			}
 		},
@@ -351,6 +351,8 @@
 		"case_sensitive": false,
 		"find_history":
 		[
+			"items =",
+			"items",
 			"getReservations",
 			"childResources",
 			"print",
@@ -476,9 +478,7 @@
 			"special",
 			"dice'",
 			"dice",
-			"computeDice",
-			"def discard",
-			"discard"
+			"computeDice"
 		],
 		"highlight": true,
 		"in_selection": false,
@@ -496,7 +496,7 @@
 	"groups":
 	[
 		{
-			"selected": 1,
+			"selected": 0,
 			"sheets":
 			[
 				{
@@ -504,15 +504,15 @@
 					"file": "/C/Users/Ananda/Documents/conferenceScheduler/scheduler.py",
 					"settings":
 					{
-						"buffer_size": 4631,
+						"buffer_size": 5036,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								0,
-								0
+								3959,
+								3959
 							]
 						],
 						"settings":
@@ -521,7 +521,7 @@
 							"translate_tabs_to_spaces": false
 						},
 						"translation.x": 0.0,
-						"translation.y": 332.0,
+						"translation.y": 1727.0,
 						"zoom_level": 1.0
 					},
 					"type": "text"
@@ -559,15 +559,15 @@
 					"file": "/C/Users/Ananda/Documents/conferenceScheduler/functions.py",
 					"settings":
 					{
-						"buffer_size": 6953,
+						"buffer_size": 6952,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								6366,
-								6366
+								5031,
+								5031
 							]
 						],
 						"settings":
@@ -577,7 +577,7 @@
 							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 0.0,
+						"translation.y": 900.0,
 						"zoom_level": 1.0
 					},
 					"type": "text"
@@ -594,8 +594,8 @@
 						"selection":
 						[
 							[
-								0,
-								0
+								538,
+								538
 							]
 						],
 						"settings":
@@ -604,7 +604,7 @@
 							"translate_tabs_to_spaces": false
 						},
 						"translation.x": 0.0,
-						"translation.y": 15.0,
+						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
 					"type": "text"
@@ -621,8 +621,8 @@
 						"selection":
 						[
 							[
-								442,
-								442
+								485,
+								485
 							]
 						],
 						"settings":
