@@ -110,24 +110,20 @@ def rooms(resourceid):
 	reservations = getReservationFromDate(session['date'])
 	items = []
 	for item in reservations:
-		print item[1]
-		print resourceid
-
 		if int(item[1]) == int(resourceid):
 			items.append(str(item[2].time().hour) + ":" + str(item[2].time().minute) + " - " + str(item[3].time().hour) + ":" + str(item[3].time().minute))
-		print "items"
-		print items
 	return render_template("resource.html", resourcetext = rscText, resource = resourceid , children = children, reservations = reservations, date = session['date'], items = items)
 
 @app.route("/rooms/reserve", methods=['POST'])
 def reserve():
 	data = request.form
-	print data['starttime']
-	startdate = str(session['date']) + ' ' + str(data['starttime'] + ':00')
-	enddate = str(session['date']) + ' ' + str(data['endtime'] + ':00')
+	if data['starttime'] >= data['endtime']:
+		return render_template("search.html", resourceTypes = getResourceTypes(), buildings = getBuildings(), notification = "Error - start time must be before end time")
+	start = str(session['date']) + ' ' + str(data['starttime'] + ':00')
+	end = str(session['date']) + ' ' + str(data['endtime'] + ':00')
 	currentuser = session['username']
 	resourceid = session['rid']
-	makeReservation(currentuser,resourceid,startdate,enddate)
+	makeReservation(currentuser,resourceid,start,end)
 	return render_template("reservations.html", reservations = getReservations(session["username"]))
 
 @app.route("/reservations/<reservationid>")
