@@ -86,7 +86,7 @@ def search():
 	rooms = filterLocations(data['building'])
 	rooms = [room for room in rooms if checkHasResources(room[1],filterResources)]
 	if session["date"]: return render_template("rooms.html", building = (getBuildingName(data["building"]),data["building"]), rooms = rooms)
-	return render_template("search.html", resourceTypes = getResourceTypes(), buildings = getBuildings())
+	return render_template("search.html", resourceTypes = getResourceTypes(), buildings = getBuildings(), notification = "Must select a date")
 
 # Signup function: Gets result from account creation and if successful shows the hello page with data, else shows the signup page with error
 @app.route("/signup", methods=['POST'])
@@ -118,7 +118,7 @@ def rooms(resourceid):
 def reserve():
 	data = request.form
 	if data['starttime'] >= data['endtime']:
-		return render_template("search.html", resourceTypes = getResourceTypes(), buildings = getBuildings(), notification = "Error - start time must be before end time")
+		return render_template("reservations.html", reservations = getReservations(session["username"]), notification = "Error - start time must be before end time")
 	start = str(session['date']) + ' ' + str(data['starttime'] + ':00')
 	end = str(session['date']) + ' ' + str(data['endtime'] + ':00')
 	currentuser = session['username']
