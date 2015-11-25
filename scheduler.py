@@ -111,7 +111,7 @@ def rooms(resourceid):
 	items = []
 	for item in reservations:
 		if int(item[1]) == int(resourceid):
-			items.append(str(item[2].time().hour) + ":" + str(item[2].time().minute) + " - " + str(item[3].time().hour) + ":" + str(item[3].time().minute))
+			items.append("{} - {}".format(str(item[2].strftime("%I:%M %p")),str(item[3].strftime("%I:%M %p"))))
 	return render_template("resource.html", resourcetext = rscText, resource = resourceid , children = children, reservations = reservations, date = session['date'], items = items)
 
 @app.route("/rooms/reserve", methods=['POST'])
