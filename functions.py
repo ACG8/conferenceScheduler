@@ -176,11 +176,3 @@ def checkHasResources(roomID,rscTypeIDList):
         if not rscT in resourceTypes:
             return False
     return True
-
-#2015-10-28
-#SQL commands for testing
-
-#Need to provide value for role id before can test; use the following:
-#   insert into tbl_roles values (0,"user","a normal user","user");
-
-#createAccount("alex","password","password","alex","hanson","hanson.alex@yahoo.com")
