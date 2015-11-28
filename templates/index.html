@@ -1,25 +1,31 @@
 <!DOCTYPE html>
 <html lang="en">
- 
-<head>
-    <title>Conference Scheduler</title>
-</head>
- 
-<body>
- 	<h1>Sign In</h1>
-	<form action="login" method="POST">
-		Username:<br>
-	  	<input type="text" name="username">
-	  	<br>
-	  	Password:<br>
-	  	<input type="text" name="password">
-		<br>
-		<button style="background-color:lightblue">Sign In!</button>
-	</form>
-	<a href="/forgotpassword"><button style="background-color:pink">Forgot Password?</button></a>
-	<br>
 
-	<a href="/signuppage"><button style="background-color:lightgreen">Sign Up</button></a>
+<head>
+	<title>Conference Scheduler - Log In</title>
+	<link rel="stylesheet" type="text/css" href="style.css">
+</head>
+
+<body>
+	<form action="login" method="POST">
+	<div style="margin: auto; width:40%; text-align: center; margin-top: 100px; border: 2px solid black; padding: 10px">
+			<span style="font-size: 30px">Conference Scheduler</span>
+			<table align="center" style="margin-top :15px">
+				<tr>
+					<td>Username:</td>
+					<td><input type="text" name="username"></td>
+				</tr>
+				<tr>
+					<td>Password:</td>
+					<td><input type="password" name="password"></td>
+				</tr>
+				<tr>
+					<td colspan="2"><button style="background-color:lightblue">Sign In!</button></td>
+				</tr>
+			</table>
+			<a href="/forgotpassword"><button style="background-color:pink">Forgot Password?</button></a>
+			<a href="/signuppage"><button style="background-color:lightgreen">Sign Up</button></a>
+		</div>
+	</form>
 </body>
- 
 </html>
