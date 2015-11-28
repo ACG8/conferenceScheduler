@@ -1,6 +1,7 @@
 .body {
 	margin: auto;
 	width: 80%;
+	font-family: sans-serif;
 }
 
 .header {
@@ -25,4 +26,20 @@
 	height: 400px;
 	background-color: lightgrey;
 	padding: 10px;
+}
+
+.content {
+	float: right;
+	width: 75%;
+	height: 400px;
+	padding:10px;
+}
+
+.button {
+	cursor: pointer;
+	border: #cccccc solid;
+  background: #cccccc;
+  width: 75px;
+  border-radius: 5px;
+  font-size: 15px;
 }

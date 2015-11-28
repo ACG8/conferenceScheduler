@@ -1,37 +1,57 @@
 <!DOCTYPE html>
 <html lang="en">
- 
-<head>
-    <title>Conference Scheduler</title>
-</head>
- 
-<body>
-	<a href="/"><button style="background-color:lightcoral">Log Out</button></a>
-	<a href="/dashboardpage"><button style="background-color:lightblue">Return</button></a>
-	<br>
- 	<h1>Search</h1>
- 	<font color="red">{{ notification }}</font>
-	<form action="search" method="POST">
-		Building:<br>
-		<select name="building">
-			{% for item in buildings %}
-			<option value="{{item[0]}}">{{item[1]}}</option>
-			{% endfor %}
-		</select>
-	  	<br>
-	  	Date:<br>
-	  	<input type="date" name="date">
-		<button>Search</button>
 
-	<h1>Required Resources</h1>
-	{% for item in resourceTypes[1:] %}
-	<div class="checkbox">
-	<label>
-    <input type="checkbox" name="rescType {{item[0]}}" value="True"> {{item[1]}}
-	</label>
-	</div>
-	{% endfor %}
-	</form>
+<head>
+	<title>Conference Scheduler - Search</title>
+	<link rel="stylesheet" type="text/css" href="style.css">
+</head>
+
+<body>
+	<div class="body">
+		<div class="header">
+			<span>Search</span>
+		</div>
+		<div class="navi">
+			<a href="/searchpage" style="display: block;">Make Reservation</a>
+			<a href="/preferencespage" style="display: block; margin-top:30px">User Profile</a>
+			<a href="/reservationspage" style="display: block; margin-top:30px">Reservation History</a>
+			<a href="/" style="display: block; margin-top:30px">Log Out</a>
+			<a href="/dashboardpage" style="display: block; margin-top:30px">Return</a>
+		</div>
+		<div class="content">
+			<font color="red">{{ notification }}</font>
+			<form action="search" method="POST">
+				<div>
+					<div style="float: left; width: 40%">
+						Building:
+						<select name="building">
+							{% for item in buildings %}
+							<option value="{{item[0]}}">{{item[1]}}</option>
+							{% endfor %}
+						</select>
+						<br>
+						Date:
+						<input type="date" name="date">
+					</div>
+					<div style="float: right; width: 60%">
+						Required Resources:
+						{% for item in resourceTypes[1:] %}
+						<div class="checkbox" style="border: 1px black">
+							<label>
+								<input type="checkbox" name="rescType {{item[0]}}" value="True"> {{item[1]}}
+							</label>
+						</div>
+						{% endfor %}
+					</div>
+				</div>
+				<button class="button">Search</button>
+				<button class="button">Reset</button>
+			</form>
+		</div>
+		<div class="footer">
+			<span>Group 1</span>
+		</div>
+	</div> 	
 </body>
 
 </html>
