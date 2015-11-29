@@ -171,6 +171,23 @@ def getPasswordAndEmail(username):
     dbTuple = db.select("tbl_users",["password","mail"],["username"],["="],[username])
     return dbTuple[0]
 
+def getUserData(username):
+    "Returns user data for user's profile view, annotated with name of attribute"
+    db = Connection("root","password","scheduler")
+    dbTuple = db.select("tbl_users",["username","first_name","last_name","mail"],["username"],["="],[username])
+    roleid = getRoleId(username)
+    dbTuple2 = db.select("tbl_roles",["name"],["id"],["="],[roleid])
+    raw = [a for a in dbTuple[0]] + [dbTuple2[0][0]]
+    print raw
+    basicData = [
+        ("Username",raw[0]),
+        ("Name","{} {}".format(raw[1],raw[2])),
+        ("Email",raw[3]),
+        ("User Type",raw[4])
+        ]
+    print basicData
+    return basicData
+
 def checkHasResources(roomID,rscTypeIDList):
     "Checks whether a roomid has all resources listed."
     resourceTypes = getChildResources(roomID,"type_id")

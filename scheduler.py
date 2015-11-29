@@ -56,19 +56,16 @@ def dashboard_page():
 
 @app.route("/preferencespage")
 def preferences_page():
-	return render_template("preferences.html")
+	data = getUserData(session["username"])
+	print data
+	return render_template("preferences.html", data = data)
 
 @app.route("/reservationspage")
 def reservations_page():
 	return render_template("reservations.html", reservations = getReservations(session["username"]))
-	
-@app.route("/reserve")
-def reserve_page():
-	return render_template('reservepage.html')
 
 @app.route("/searchpage")
 def search_page():
-	res = getResourceTypes()
 	return render_template("search.html", resourceTypes = getResourceTypes(), buildings = getBuildings())
 
 @app.route("/changePassword", methods=['POST'])
@@ -125,12 +122,12 @@ def reserve():
 	currentuser = session['username']
 	resourceid = session['rid']
 	makeReservation(currentuser,resourceid,start,end)
-	return render_template("reservations.html", reservations = getReservations(session["username"]))
+	return reservations_page()
 
 @app.route("/reservations/<reservationid>")
 def unreserve(reservationid):
 	deleteReservation(reservationid)
-	return render_template("reservations.html", reservations = getReservations(session["username"]))
+	return reservations_page()
 
 if __name__ == "__main__":
 	app.run()

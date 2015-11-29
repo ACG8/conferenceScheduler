@@ -8,7 +8,12 @@
 <body>
 	<a href="/"><button style="background-color:lightcoral">Log Out</button></a>
 	<a href="/dashboardpage"><button style="background-color:lightblue">Return</button></a>
-	<h1>Preferences</h1>
+	<h1>Profile</h1>
+		{% for item in data %}
+		<p>
+		{{item[0]}}: {{item[1]}}
+		</p>
+		{% endfor %}
 	<form action="changePassword" method="POST">
 		New Password:<br>
 	  	<input type="text" name="newpass">
