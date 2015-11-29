@@ -12,9 +12,9 @@
 	     	<span style="font-size: 30px">Dash Board</span>
 	    </div>
 	    <div class="navi">
-		 	<a href="/searchpage" style="display:block">Make Reservation</a>
+	    	{% if privilege!=0 %}<a href="/searchpage" style="display:block">Make Reservation</a>{% endif %}
 		 	<a href="/preferencespage" style="display:block; margin-top:30px">User Profile</a>
-		 	<a href="/reservationspage" style="display:block; margin-top:30px">Reservation History</a>
+		 	{% if privilege!=0 %}<a href="/reservationspage" style="display:block; margin-top:30px">Reservation History</a>{% endif %}
 		 	<a href="/" style="display:block; margin-top:30px">Log Out</a>
 	    </div>
 	    <div class="footer">

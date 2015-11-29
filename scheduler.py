@@ -19,10 +19,11 @@ def main():
 @app.route("/login", methods=['POST'])
 def login():
 	data = request.form
-	print data
-	if checkSignIn(data['username'], data['password']):
-		session["username"] = data['username']
-		return render_template("dashboard.html")
+	username = data["username"]
+	if checkSignIn(username, data['password']):
+		session["username"] = username
+		session["role id"] = getRoleId(username)
+		return dashboard_page()
 	else:
 		return render_template("index.html")
 		
@@ -51,7 +52,7 @@ def sign_up_page():
 
 @app.route("/dashboardpage")
 def dashboard_page():
-	return render_template("dashboard.html")
+	return render_template("dashboard.html", privilege = session["role id"])
 
 @app.route("/preferencespage")
 def preferences_page():
@@ -96,7 +97,7 @@ def sign_up():
 	print account
 	if account[0]:
 		session["username"] = data['username']
-		return render_template("dashboard.html")
+		return dashboard_page()
 	else:
 		return render_template("signup.html", data = account[1])
 		
