@@ -40,7 +40,7 @@ def forgot():
 					sender="conference@forgot.com",
 					recipients=[info[1]])
 	print "setup message"
-	print mail.send(msg)
+	mail.send(msg)
 	print "message sent"
 	return render_template("index.html")
 
