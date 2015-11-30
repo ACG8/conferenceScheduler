@@ -1,8 +1,8 @@
 from functions import *
 from flask import Flask, render_template, request, session
-from email.mime.text import MIMEText
-from subprocess import Popen, PIPE
+from flask_mail import Mail, Message
 app = Flask(__name__)
+mail = Mail(app)
 app.secret_key = "fdfiwdf8qfy82hcuiqch82ht2ghwrfqrjvb8rvg924f4ygheufqeu2g72hg24hfefw4g24"
 
 #currentUser = ""
@@ -72,13 +72,12 @@ def forgot():
 	data = request.form
 	info = getPasswordAndEmail(data['username'])
 	
-	msg = MIMEText("Your password is " + info[0])
-	msg["From"] = "conference@forgot.com"
-	msg["To"] = info[1]
-	msg["Subject"] = "Forgot Password"
-	p = Popen(["/usr/sbin/sendmail", "-t", "-oi"], stdin=PIPE)
-	p.communicate(msg.as_string()) 
-	
+	msg = Message("Your password is " + str(info[0]),
+					sender="conference@forgot.com",
+					recipients=[info[1]])
+	print "setup message"
+	mail.send(msg)
+	print "message sent"
 	return render_template("index.html")
 
 # Signup function: Gets result from account creation and if successful shows the hello page with data, else shows the signup page with error
