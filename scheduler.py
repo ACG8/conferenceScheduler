@@ -1,6 +1,7 @@
 from functions import *
 from flask import Flask, render_template, request, session
 from flask_mail import Mail, Message
+import datetime
 app = Flask(__name__)
 mail = Mail(app)
 app.secret_key = "fdfiwdf8qfy82hcuiqch82ht2ghwrfqrjvb8rvg924f4ygheufqeu2g72hg24hfefw4g24"
@@ -137,7 +138,27 @@ def reserve():
 	end = str(session['date']) + ' ' + str(data['endtime'] + ':00')
 	currentuser = session['username']
 	resourceid = session['rid']
-	makeReservation(currentuser,resourceid,start,end)
+	print data
+	if not data['monthly']:
+		makeReservation(currentuser,resourceid,start,end)
+	if data['monthly']:
+		count = int(data['Amount'])
+		over = 0
+		while count > -1:
+			makeReservation(currentuser,resourceid,start,end)
+			month = int(session['date'][5:7]) + count
+			if month > 12:
+				month = '0' + str(1 + over)
+				print month
+				year = int(session['date'][:4]) + 1
+				day = int(session['date'][-2:])
+				over = over + 1
+			else:
+				day = int(session['date'][-2:])
+				year = int(session['date'][:4])
+			start = str(year) + '-' + str(month) + '-' + str(day) + ' ' + str(data['starttime'] + ':00')
+			end = str(year) + '-' + str(month) + '-' + str(day) + ' ' + str(data['endtime'] + ':00')
+			count = count - 1
 	return reservations_page()
 
 @app.route("/reservations/<reservationid>")
