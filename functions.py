@@ -198,3 +198,31 @@ def checkHasResources(roomID,rscTypeIDList):
         if not rscT in resourceTypes:
             return False
     return True
+
+############################################################
+################    Management Functions    ################
+############################################################
+
+def getNewUsers():
+    "Returns a list of new users"
+    db = Connection("root","password","scheduler")
+    dbTuple = db.select("tbl_users",["username"],["role_id"],["="],[0])
+    return [d[0] for d in dbTuple]
+
+def getMyUsers(username):
+    "Returns a list of users whose manager is the current user"
+    db = Connection("root","password","scheduler")
+    dbTuple = db.select("tbl_users",["username"],["manager"],["="],[username])
+    return [d[0] for d in dbTuple]
+
+def changeManager(username,newManager):
+    "Changes a user's manager"
+    db = Connection("root","password","scheduler")
+    db.update("tbl_users",["manager"],[newManager],["username"],["="],[username])
+    db.commit()
+
+def changeUserRole(username,newRoleId):
+    "Changes a user's role"
+    db = Connection("root","password","scheduler")
+    db.update("tbl_users",["role_id"],[newRoleId],["username"],["="],[username])
+    db.commit()

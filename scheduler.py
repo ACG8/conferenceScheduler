@@ -8,12 +8,52 @@ app.secret_key = "fdfiwdf8qfy82hcuiqch82ht2ghwrfqrjvb8rvg924f4ygheufqeu2g72hg24h
 #currentUser = ""
 #date = ""
 
+
+
+
+############################################################
+################    Navigation Functions    ################
+############################################################
+
 # Index page. Presents the sign in form when first presented.
 @app.route("/")
 def main():
 	#Should clear session here TODO
-	return render_template("index.html")	
+	return render_template("index.html")
 
+@app.route("/forgotpassword")
+def forgot_password():
+	return render_template("forgotpassword.html")
+
+# Signup page: Simply shows the signup page.
+@app.route("/signuppage")
+def sign_up_page():
+	return render_template("signup.html")
+
+@app.route("/dashboardpage")
+def dashboard_page():
+	return render_template("dashboard.html", privilege = session["role id"])
+
+@app.route("/preferencespage")
+def preferences_page():
+	data = getUserData(session["username"])
+	return render_template("preferences.html", data = data)
+
+@app.route("/reservationspage")
+def reservations_page():
+	return render_template("reservations.html", reservations = getReservations(session["username"]))
+
+@app.route("/searchpage")
+def search_page():
+	return render_template("search.html", resourceTypes = getResourceTypes(), buildings = getBuildings())
+
+@app.route("/managementpage")
+def management_page():
+	return render_template("management.html", newUsers = getNewUsers(), myUsers = getMyUsers(session["username"]))
+
+############################################################
+################      Account Functions     ################
+############################################################
 
 # Login function: Checks if the person logs in successfully, if they do show the hello page for now, else stay on login page
 @app.route("/login", methods=['POST'])
@@ -27,10 +67,6 @@ def login():
 	else:
 		return render_template("index.html")
 		
-@app.route("/forgotpassword")
-def forgot_password():
-	return render_template("forgotpassword.html")
-	
 @app.route("/forgot", methods=['POST'])
 def forgot():
 	data = request.form
@@ -45,47 +81,6 @@ def forgot():
 	
 	return render_template("index.html")
 
-# Signup page: Simply shows the signup page.
-@app.route("/signuppage")
-def sign_up_page():
-	return render_template("signup.html")
-
-@app.route("/dashboardpage")
-def dashboard_page():
-	return render_template("dashboard.html", privilege = session["role id"])
-
-@app.route("/preferencespage")
-def preferences_page():
-	data = getUserData(session["username"])
-	print data
-	return render_template("preferences.html", data = data)
-
-@app.route("/reservationspage")
-def reservations_page():
-	return render_template("reservations.html", reservations = getReservations(session["username"]))
-
-@app.route("/searchpage")
-def search_page():
-	return render_template("search.html", resourceTypes = getResourceTypes(), buildings = getBuildings())
-
-@app.route("/changePassword", methods=['POST'])
-def change_password():
-	data = request.form
-	if data["newpass"] and data["newpass"] == data["renewpass"]:
-		changePassword(session["username"],data["newpass"])
-	return render_template("preferences.html")
-
-@app.route("/search", methods=['POST'])
-def search():
-	data = request.form
-	session['date'] = data['date']
-	resourceTypeIDs = getResourceTypes()
-	filterResources = [rType[0] for rType in resourceTypeIDs if data.get("rescType " + str(rType[0]))]
-	rooms = filterLocations(data['building'])
-	rooms = [room for room in rooms if checkHasResources(room[1],filterResources)]
-	if session["date"]: return render_template("rooms.html", building = (getBuildingName(data["building"]),data["building"]), rooms = rooms)
-	return render_template("search.html", resourceTypes = getResourceTypes(), buildings = getBuildings(), notification = "Must select a date")
-
 # Signup function: Gets result from account creation and if successful shows the hello page with data, else shows the signup page with error
 @app.route("/signup", methods=['POST'])
 def sign_up():
@@ -97,6 +92,28 @@ def sign_up():
 		return dashboard_page()
 	else:
 		return render_template("signup.html", data = account[1])
+
+@app.route("/changePassword", methods=['POST'])
+def change_password():
+	data = request.form
+	if data["newpass"] and data["newpass"] == data["renewpass"]:
+		changePassword(session["username"],data["newpass"])
+	return render_template("preferences.html")
+
+############################################################
+################   Reservation Functions    ################
+############################################################
+
+@app.route("/search", methods=['POST'])
+def search():
+	data = request.form
+	session['date'] = data['date']
+	resourceTypeIDs = getResourceTypes()
+	filterResources = [rType[0] for rType in resourceTypeIDs if data.get("rescType " + str(rType[0]))]
+	rooms = filterLocations(data['building'])
+	rooms = [room for room in rooms if checkHasResources(room[1],filterResources)]
+	if session["date"]: return render_template("rooms.html", building = (getBuildingName(data["building"]),data["building"]), rooms = rooms)
+	return render_template("search.html", resourceTypes = getResourceTypes(), buildings = getBuildings(), notification = "Must select a date")
 		
 @app.route("/rooms/<resourceid>")
 def rooms(resourceid):
@@ -129,6 +146,19 @@ def unreserve(reservationid):
 	deleteReservation(reservationid)
 	return reservations_page()
 
+############################################################
+################    Management Functions    ################
+############################################################
+
+@app.route("/manage/claim/<username>")
+def claim(username):
+	me = session["username"]
+	changeManager(username,me)
+	changeUserRole(username,3) #Make them into normal users
+	return management_page()
+
+############################################################
+################            Main            ################
+############################################################
 if __name__ == "__main__":
 	app.run()
-	

@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+ 
+<head>
+    <title>Conference Scheduler</title>
+</head>
+ 
+<body>
+	<a href="/"><button style="background-color:lightcoral">Log Out</button></a>
+	<a href="/dashboardpage"><button style="background-color:lightblue">Return</button></a>
+	<h1>Manage Users</h1>
+
+		<h2>Approve and Claim New Users</h2>
+		{% for nUser in newUsers %}
+		<p>
+			<a href='/manage/claim/{{nUser}}'>{{nUser}}</a>
+		</p>
+		{% endfor %}
+
+		<h2>Manage My Users</h2>
+		{% for mUser in myUsers %}
+		<p>
+			{{mUser}}
+		</p>
+		{% endfor %}
+</body>
+ 
+</html>
