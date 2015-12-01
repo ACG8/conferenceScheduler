@@ -1,47 +1,67 @@
 <!DOCTYPE html>
 <html lang="en">
- 
+
 <head>
-    <title>Conference Scheduler</title>
+	<title>Conference Scheduler - Resource</title>
+	<link rel="stylesheet" type="text/css" href="style.css">
 </head>
 
 <body>
-	<a href="/"><button style="background-color:lightcoral">Log Out</button></a>
-	<a href="/dashboardpage"><button style="background-color:lightblue">Return</button></a>
-	<h1>{{resourcetext[1]}} {{resourcetext[0]}} </h1>
-	{% for item in children %}
-	<p>
-		{{item[0]}}
-	</p>
-	{% endfor %}
-	
-	<br>
-	<br>
-	<br>
-	
-	<h2>Reserve</h2>
-	<h4>{{date}}</h4>
-	
-	<form action="reserve" method="POST">
-	
-		
-		<p>Times Reserved</p>
-		<ul>
-		{% for x in items %}
-			<li>{{x}}</li>
-		{% endfor %}
-		</ul>
-		<br>
-		Start time:<br>
-		<input type="time" name="starttime" step=1800>
-		<br>
-		End time:<br>
-		<input type="time" name="endtime" step=1800>
-		<br>
-		<div class="checkbox" style="border: 1px black">
-			<label>
-				<input type="checkbox" name="monthly" value="True"> Recurring Monthly
-			</label>
+	<div class="body">
+		<div class="header">
+			<span style="font-size: 30px">{{resourcetext[1]}} {{resourcetext[0]}}</span>
+		</div>
+		<div class="navi">
+			{% if privilege!=0 %}<a href="/searchpage" style="display:block">Make Reservation</a>{% endif %}
+			<a href="/preferencespage" style="display:block; margin-top:30px">User Profile</a>
+			{% if privilege!=0 %}<a href="/reservationspage" style="display:block; margin-top:30px">Reservation History</a>{% endif %}
+			<a href="/" style="display:block; margin-top:30px">Log Out</a>
+			{% if privilege==2 %}<a href="/managementpage" style="display:block; margin-top:30px">Manage Users</a>{% endif %}
+		</div>
+		<div class="content">
+			{% for item in children %}
+			<p>
+				{{item[0]}}
+			</p>
+			{% endfor %}
+			<span>Reserve</span>
+			<span>{{date}}</span>
+
+			<form action="reserve" method="POST">
+				<p>Times Reserved</p>
+				<ul>
+					{% for x in items %}
+					<li>{{x}}</li>
+					{% endfor %}
+				</ul>
+				<br>
+				<div style="border: 1px solid black; padding: 10px">
+					Start time:<br>
+					<input type="time" name="starttime" step=1800>
+					<br>
+					End time:<br>
+					<input type="time" name="endtime" step=1800>
+					<br>
+					<div class="checkbox" style="border: 1px black">
+						<label>
+							<input type="checkbox" name="monthly" value="True"> Recurring Monthly
+						</label>
+					</div>
+					<br>
+					Recurring amount of times:
+					<br>
+					<select name="Amount">
+						<option value="0">0</option>
+						<option value="1">1</option>
+						<option value="2">2</option>
+						<option value="3">3</option>
+					</select>		
+					<button class="button">Reserve</button>
+				</div>
+			</form>
+		</div>
+		<div class="footer">
+			<span>Group 1</span>
 		</div>
 		<br>
 		Recurring amount of times:
@@ -80,4 +100,5 @@
 		</br>
 		<button>Leave Feadback</button>
 	</form>
+	</div>
 </body>
