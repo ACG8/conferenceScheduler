@@ -235,7 +235,7 @@ def getFeedback(resourceID):
 def giveFeedback(resourceID,rating,comments):
     db = Connection("root","password","scheduler")
     date = "\"{}\"".format(str(datetime.datetime.now()))
-    db.append("tbl_reservations",
+    db.append("tbl_reviews",
               ("{}".format(resourceID),"{}".format(rating),"'{}'".format(comments),"{}".format(date)),
               ("tbl_resources_id","rating","comments","created_on")
     )

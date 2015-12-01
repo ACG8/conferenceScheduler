@@ -42,11 +42,9 @@
 					End time:<br>
 					<input type="time" name="endtime" step=1800>
 					<br>
-					<div class="checkbox" style="border: 1px black">
-						<label>
-							<input type="checkbox" name="monthly" value="True"> Recurring Monthly
-						</label>
-					</div>
+					<label>
+						<input type="checkbox" name="monthly" value="True"> Recurring Monthly
+					</label>
 					<br>
 					Recurring amount of times:
 					<br>
@@ -56,49 +54,46 @@
 						<option value="2">2</option>
 						<option value="3">3</option>
 					</select>		
-					<button class="button">Reserve</button>
+					<button>Reserve</button>
 				</div>
 			</form>
+			<br>
+			<br>
+			<br>
+			<h2>Leave Feedback</h2>
+			<form action="feedback" method="POST">
+				<input type="hidden" name="resourceid" value="{{resourceid}}">
+
+				Rating:
+				<select name="rating">
+			 		<option value="0">0</option>
+					<option value="1">1</option>
+					<option value="2">2</option>
+					<option value="3">3</option>
+					<option value="4">4</option>
+					<option value="5">5</option>
+					<option value="6">6</option>
+					<option value="7">7</option>
+					<option value="8">8</option>
+					<option value="9">9</option>
+					<option value="10">10</option>
+				</select>
+				<br>
+				Feedback:<br>
+				<textarea name='comment'></textarea>
+				</br>
+				<button>Leave Feadback</button>
+			</form>
+			
+			{% for x in feedback %}
+				<h3> Review </h3>
+				<p>Date: {{x[2]}}</p>
+				<p>Rating: {{x[0]}}</p>
+				<p>Review: {{x[1]}}</p>
+			{% endfor %}
 		</div>
 		<div class="footer">
 			<span>Group 1</span>
 		</div>
-		<br>
-		Recurring amount of times:
-		<br>
-		<select name="Amount">
-		  <option value="0">0</option>
-		  <option value="1">1</option>
-		  <option value="2">2</option>
-		  <option value="3">3</option>
-		</select>
-		</br>
-		<button>Reserve</button>
-	</form>
-	<br>
-	<br>
-	<br>
-	<h2>Leave Feedback</h2>
-	<form action="feedback" method="POST">
-		Rating:
-		<select name="Rating">
-	 		<option value="0">0</option>
-			<option value="1">1</option>
-			<option value="2">2</option>
-			<option value="3">3</option>
-			<option value="4">4</option>
-			<option value="5">5</option>
-			<option value="6">6</option>
-			<option value="7">7</option>
-			<option value="8">8</option>
-			<option value="9">9</option>
-			<option value="10">10</option>
-		</select>
-		<br>
-		Feedback:<br>
-		<textarea name='comment'></textarea>
-		</br>
-		<button>Leave Feadback</button>
-	</form>
 	</div>
 </body>

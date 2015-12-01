@@ -122,12 +122,13 @@ def rooms(resourceid):
 	children = [getResourceName(r) for r in children]
 	rscText = getResourceLocation(resourceid)
 	rscText = (getBuildingName(rscText[0]), rscText[1])
+	feedback = getFeedback(resourceid)
 	reservations = getReservationFromDate(session['date'])
 	items = []
 	for item in reservations:
 		if int(item[1]) == int(resourceid):
 			items.append("{} - {}".format(str(item[2].strftime("%I:%M %p")),str(item[3].strftime("%I:%M %p"))))
-	return render_template("resource.html", resourcetext = rscText, resourceid = resourceid , children = children, reservations = reservations, date = session['date'], items = items)
+	return render_template("resource.html", resourcetext = rscText, resourceid = resourceid , children = children, reservations = reservations, date = session['date'], items = items, feedback = feedback)
 
 @app.route("/rooms/reserve", methods=['POST'])
 def reserve():
@@ -138,8 +139,8 @@ def reserve():
 	end = str(session['date']) + ' ' + str(data['endtime'] + ':00')
 	currentuser = session['username']
 	resourceid = session['rid']
-	print data
-	if not data['monthly']:
+	count = int(data['Amount'])
+	if count == 0:
 		makeReservation(currentuser,resourceid,start,end)
 	if data['monthly']:
 		count = int(data['Amount'])
@@ -164,9 +165,10 @@ def reserve():
 @app.route("/rooms/feedback", methods=['POST'])
 def feedback():
 	data = request.form
+	resourceid = data['resourceid']
 	rating = data['rating']
 	comment = data['comment']
-	print data
+	giveFeedback(resourceid,rating,comment)
 	return dashboard_page()
 
 @app.route("/reservations/<reservationid>")
