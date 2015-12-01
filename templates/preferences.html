@@ -1,28 +1,40 @@
 <!DOCTYPE html>
 <html lang="en">
- 
+
 <head>
-    <title>Conference Scheduler</title>
+	<title>Conference Scheduler - Profile</title>
+	<link rel="stylesheet" type="text/css" href="style.css" />
 </head>
- 
+
 <body>
-	<a href="/"><button style="background-color:lightcoral">Log Out</button></a>
-	<a href="/dashboardpage"><button style="background-color:lightblue">Return</button></a>
-	<h1>Profile</h1>
-		{% for item in data %}
-		<p>
-		{{item[0]}}: {{item[1]}}
-		</p>
-		{% endfor %}
-	<form action="changePassword" method="POST">
-		New Password:<br>
-	  	<input type="text" name="newpass">
-	  	<br>
-	  	Confirm New Password:<br>
-	  	<input type="text" name="renewpass">
-		<br>
-		<button>Change Password</button>
-	</form>
+	<div class="body">
+		<div class="header">
+			<span style="font-size: 30px">Profile</span>
+		</div>
+		<div class="navi">
+			{% if privilege!=0 %}<a href="/searchpage" style="display:block">Make Reservation</a>{% endif %}
+			<a href="/preferencespage" style="display:block; margin-top:30px">User Profile</a>
+			{% if privilege!=0 %}<a href="/reservationspage" style="display:block; margin-top:30px">Reservation History</a>{% endif %}
+			<a href="/" style="display:block; margin-top:30px">Log Out</a>
+			{% if privilege==2 %}<a href="/managementpage" style="display:block; margin-top:30px">Manage Users</a>{% endif %}
+		</div>
+		<div>
+			{% for item in data %}
+			<p>
+				{{item[0]}}: {{item[1]}}
+			</p>
+			{% endfor %}
+			<form action="changePassword" method="POST">
+				<table>
+					<tr><td>New Password:</td><td><input type="password" name="newpass"></td></tr>
+					<tr><td>Confirm New Password:</td><td><input type="password" name="renewpass"></td></tr>
+					<tr><td colspan="2" style="text-align: center"><button class="button">Change</button></td></tr>
+				</table>
+			</form>
+		</div>
+		<div class="footer">
+			<span>Group 1</span>
+		</div>
+	</div>
 </body>
- 
 </html>
