@@ -1,17 +1,33 @@
 <!DOCTYPE html>
 <html lang="en">
- 
+
 <head>
-    <title>Conference Scheduler</title>
+	<title>Conference Scheduler - Rooms</title>
+	<link rel="stylesheet" type="text/css" href="style.css">
 </head>
 
 <body>
-	<a href="/"><button style="background-color:lightcoral">Log Out</button></a>
-	<a href="/dashboardpage"><button style="background-color:lightblue">Return</button></a>
-	<h1>{{building[0]}}</h1>
-	{% for item in rooms %}
-	<p>
-		<a href='/rooms/{{item[1]}}'>{{item[0]}}</a>
-	</p>
-	{% endfor %}
+	<div class="body">
+		<div class="header">
+			<span style="font-size: 30px">Dash Board</span>
+		</div>
+		<div class="navi">
+			{% if privilege!=0 %}<a href="/searchpage" style="display:block">Make Reservation</a>{% endif %}
+			<a href="/preferencespage" style="display:block; margin-top:30px">User Profile</a>
+			{% if privilege!=0 %}<a href="/reservationspage" style="display:block; margin-top:30px">Reservation History</a>{% endif %}
+			<a href="/" style="display:block; margin-top:30px">Log Out</a>
+			{% if privilege==2 %}<a href="/managementpage" style="display:block; margin-top:30px">Manage Users</a>{% endif %}
+		</div>
+		<div class="content">
+		  <span>{{building[0]}}</span>
+			{% for item in rooms %}
+			<p>
+				<a href='/rooms/{{item[1]}}'>{{item[0]}}</a>
+			</p>
+			{% endfor %}
+		</div>
+		<div class="footer">
+			<span>Group 1</span>
+		</div>
+	</div>
 </body>
