@@ -231,3 +231,12 @@ def getFeedback(resourceID):
     db = Connection("root","password","scheduler")
     dbTuple = db.select("tbl_reviews",["rating", "comments", "created_on"],["tbl_resources_id"],["="],[resourceID])
     return dbTuple
+
+def giveFeedback(resourceID,rating,comments):
+    db = Connection("root","password","scheduler")
+    date = "\"{}\"".format(str(datetime.datetime.now()))
+    db.append("tbl_reservations",
+              ("{}".format(resourceID),"{}".format(rating),"'{}'".format(comments),"{}".format(date)),
+              ("tbl_resources_id","rating","comments","created_on")
+    )
+    db.commit()
