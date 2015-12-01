@@ -107,7 +107,6 @@ def makeReservation(username,resourceID,start,end):
     )
     db.commit()
 
-
 def getChildResources(resourceID,outputType):
     db = Connection("root","password","scheduler")
     dbTuple = db.select("tbl_resources",[outputType],["root_parent_resource_id"],["="],[resourceID])
@@ -226,3 +225,9 @@ def changeUserRole(username,newRoleId):
     db = Connection("root","password","scheduler")
     db.update("tbl_users",["role_id"],[newRoleId],["username"],["="],[username])
     db.commit()
+
+def getFeedback(resourceID):
+    "Returns all feedback for the given resource"
+    db = Connection("root","password","scheduler")
+    dbTuple = db.select("tbl_reviews",["rating", "comments", "created_on"],["tbl_resources_id"],["="],[resourceID])
+    return dbTuple

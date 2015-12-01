@@ -1,9 +1,9 @@
 from functions import *
 from flask import Flask, render_template, request, session
-from flask_mail import Mail, Message
+#from flask_mail import Mail, Message
 import datetime
 app = Flask(__name__)
-mail = Mail(app)
+#mail = Mail(app)
 app.secret_key = "fdfiwdf8qfy82hcuiqch82ht2ghwrfqrjvb8rvg924f4ygheufqeu2g72hg24hfefw4g24"
 
 #currentUser = ""
@@ -73,11 +73,11 @@ def forgot():
 	data = request.form
 	info = getPasswordAndEmail(data['username'])
 	
-	msg = Message("Your password is " + str(info[0]),
-					sender="conference@forgot.com",
-					recipients=[info[1]])
+	#msg = Message("Your password is " + str(info[0]),
+					#sender="conference@forgot.com",
+					#recipients=[info[1]])
 	print "setup message"
-	mail.send(msg)
+	#mail.send(msg)
 	print "message sent"
 	return render_template("index.html")
 
