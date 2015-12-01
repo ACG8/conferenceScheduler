@@ -127,7 +127,7 @@ def rooms(resourceid):
 	for item in reservations:
 		if int(item[1]) == int(resourceid):
 			items.append("{} - {}".format(str(item[2].strftime("%I:%M %p")),str(item[3].strftime("%I:%M %p"))))
-	return render_template("resource.html", resourcetext = rscText, resource = resourceid , children = children, reservations = reservations, date = session['date'], items = items)
+	return render_template("resource.html", resourcetext = rscText, resourceid = resourceid , children = children, reservations = reservations, date = session['date'], items = items)
 
 @app.route("/rooms/reserve", methods=['POST'])
 def reserve():
@@ -160,6 +160,14 @@ def reserve():
 			end = str(year) + '-' + str(month) + '-' + str(day) + ' ' + str(data['endtime'] + ':00')
 			count = count - 1
 	return reservations_page()
+	
+@app.route("/rooms/feedback", methods=['POST'])
+def feedback():
+	data = request.form
+	rating = data['rating']
+	comment = data['comment']
+	print data
+	return dashboard_page()
 
 @app.route("/reservations/<reservationid>")
 def unreserve(reservationid):
