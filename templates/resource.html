@@ -70,10 +70,11 @@
 					<span style="display: block">Comments:</span>
 					<textarea name="comment" style="width: 90%"></textarea>
 					<button class="button">Done</button>
-					<span style="display: block">{% for x in feedback %}</span>
+					<span style="display: block"></span>
 			</div>
 		</form>
-		<div style="margin-top:10px; float: right; width: 45%; padding: 10px">
+		<div style="margin-top:10px; float: right; width: 45%; height: 30%; padding: 10px; overflow:scroll">
+			{% for x in feedback %}
 			<span style="display: block; font-weight: bold">Review</span>
 			<span style="display: block">Date: {{x[2]}}</span>
 			<span style="display: block">Rating: {{x[0]}}</span>
