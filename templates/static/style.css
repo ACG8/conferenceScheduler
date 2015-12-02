@@ -1,0 +1,48 @@
+div {
+	font-family: sans-serif;
+}
+
+.body {
+	margin: auto;
+	width: 80%;
+}
+
+.header {
+	font-size: 30px;
+	color: white;
+	text-align: center;
+	padding: 10px;
+	background-color: black;
+}
+
+.footer {
+	color: white;
+	text-align: center;
+	padding: 10px;
+	background-color: black;
+	clear: both;
+}
+
+.navi {
+	float: left;
+	width: 20%;
+	height: 450px;
+	background-color: lightgrey;
+	padding: 10px;
+}
+
+.content {
+	float: right;
+	width: 75%;
+	height: 450px;
+	padding:10px;
+}
+
+.button {
+	cursor: pointer;
+	border: #cccccc solid;
+  background: #cccccc;
+  width: 75px;
+  border-radius: 5px;
+  font-size: 15px;
+}

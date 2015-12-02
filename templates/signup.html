@@ -1,39 +1,32 @@
 <!DOCTYPE html>
 <html lang="en">
- 
+
 <head>
-    <title>Conference Scheduler</title>
+	<title>Conference Scheduler - Sign Up</title>
+	<link rel="stylesheet" type="text/css" href="static/style.css">
 </head>
- 
+
 <body>
- 	
-	<h1>Sign Up</h1>
-	{% if data %}
-		<h3>{{ data }}</h3>
-	{% endif %}
-	
-    <form action="signup" method="POST">
-		First name:<br>
-  		<input type="text" name="firstname">
-  		<br>
-  		Last name:<br>
-		<input type="text" name="lastname">
-		<br>
-		Username:<br>
-		<input type="text" name="username">
-		<br>
-		Password:<br>
-		<input type="password" name="password">
-		<br>
-		Re-enter Password:<br>
-		<input type="password" name="passwordconfirmation">
-		<br>
-		Email:<br>
-		<input type="text" name="email">
-		<br>
-		<button>Sign Up</button>
-	</form>
-	<a href="/"><button>Sign In</button></a>
+	<div style="margin: auto; width:40%; text-align: center; margin-top: 100px; border: 2px solid black; padding: 10px">
+		<span style="font-size: 30px; display: block">Sign Up</span>
+
+		{% if data %}
+		<span style="display:block">{{ data }}</span>
+		{% endif %}
+
+		<form action="signup" method="POST">
+			<table align="center" style="margin-top :15px; text-align: right">
+				<tr><td>First name:</td><td><input type="text" name="firstname"></td></tr>
+				<tr><td>Last name:</td><td><input type="text" name="lastname"></td></tr>
+				<tr><td>Username:</td><td><input type="text" name="username"></td></tr>
+				<tr><td>Password:</td><td><input type="password" name="password"></td></tr>
+				<tr><td>Re-enter Password:</td><td><input type="password" name="passwordconfirmation"></td></tr>
+				<tr><td>Email:</td><td><input type="text" name="email"></td></tr>
+			</table>
+			<button class="button">Sign Up</button>
+		</form>
+		<a href="/">Sign In</a>
+		<span style="margin-top: 15px; display: block">Group 1</span>
+	</div>
 </body>
- 
 </html>
