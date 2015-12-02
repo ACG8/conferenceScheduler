@@ -12,11 +12,11 @@
 			<span>Search</span>
 		</div>
 		<div class="navi">
-			{% if privilege!=0 %}<a href="/searchpage" style="display:block">Make Reservation</a>{% endif %}
+			{% if privilege > 1 %}<a href="/searchpage" style="display:block">Make Reservation</a>{% endif %}
 			<a href="/preferencespage" style="display:block; margin-top:30px">User Profile</a>
-			{% if privilege!=0 %}<a href="/reservationspage" style="display:block; margin-top:30px">Reservation History</a>{% endif %}
+			{% if privilege > 1 %}<a href="/reservationspage" style="display:block; margin-top:30px">Reservation History</a>{% endif %}
 			<a href="/" style="display:block; margin-top:30px">Log Out</a>
-			{% if privilege==2 %}<a href="/managementpage" style="display:block; margin-top:30px">Manage Users</a>{% endif %}
+			{% if privilege > 2 %}<a href="/managementpage" style="display:block; margin-top:30px">Manage Users</a>{% endif %}
 		</div>
 		<div class="content">
 			<font color="red">{{ notification }}</font>

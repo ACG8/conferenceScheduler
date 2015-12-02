@@ -38,19 +38,19 @@ def dashboard_page():
 @app.route("/preferencespage")
 def preferences_page():
 	data = getUserData(session["username"])
-	return render_template("preferences.html", data = data)
+	return render_template("preferences.html", data = data, privilege = session["role id"])
 
 @app.route("/reservationspage")
 def reservations_page():
-	return render_template("reservations.html", reservations = getReservations(session["username"]))
+	return render_template("reservations.html", reservations = getReservations(session["username"]), privilege = session["role id"])
 
 @app.route("/searchpage")
 def search_page():
-	return render_template("search.html", resourceTypes = getResourceTypes(), buildings = getBuildings())
+	return render_template("search.html", resourceTypes = getResourceTypes(), buildings = getBuildings(), privilege = session["role id"])
 
 @app.route("/managementpage")
 def management_page():
-	return render_template("management.html", newUsers = getNewUsers(), myUsers = getMyUsers(session["username"]))
+	return render_template("management.html", newUsers = getNewUsers(), myUsers = getMyUsers(session["username"]), privilege = session["role id"])
 
 ############################################################
 ################      Account Functions     ################
@@ -84,12 +84,18 @@ def forgot():
 # Signup function: Gets result from account creation and if successful shows the hello page with data, else shows the signup page with error
 @app.route("/signup", methods=['POST'])
 def sign_up():
+	print "signup a"
 	data = request.form
+	print "signup b"
 	account = createAccount(data['username'],data['password'],data['passwordconfirmation'],data['firstname'],data['lastname'],data['email'])
+	print "signup c"
 	print account
+	print "signup d"
 	if account[0]:
+		print "signup e"
 		session["username"] = data['username']
-		return dashboard_page()
+		print "signup f"
+		return render_template("index.html")
 	else:
 		return render_template("signup.html", data = account[1])
 
@@ -112,8 +118,8 @@ def search():
 	filterResources = [rType[0] for rType in resourceTypeIDs if data.get("rescType " + str(rType[0]))]
 	rooms = filterLocations(data['building'])
 	rooms = [room for room in rooms if checkHasResources(room[1],filterResources)]
-	if session["date"]: return render_template("rooms.html", building = (getBuildingName(data["building"]),data["building"]), rooms = rooms)
-	return render_template("search.html", resourceTypes = getResourceTypes(), buildings = getBuildings(), notification = "Must select a date")
+	if session["date"]: return render_template("rooms.html", building = (getBuildingName(data["building"]),data["building"]), rooms = rooms, privilege = session["role id"])
+	return render_template("search.html", resourceTypes = getResourceTypes(), buildings = getBuildings(), notification = "Must select a date", privilege = session["role id"])
 		
 @app.route("/rooms/<resourceid>")
 def rooms(resourceid):
@@ -128,13 +134,13 @@ def rooms(resourceid):
 	for item in reservations:
 		if int(item[1]) == int(resourceid):
 			items.append("{} - {}".format(str(item[2].strftime("%I:%M %p")),str(item[3].strftime("%I:%M %p"))))
-	return render_template("resource.html", resourcetext = rscText, resourceid = resourceid , children = children, reservations = reservations, date = session['date'], items = items, feedback = feedback)
+	return render_template("resource.html", resourcetext = rscText, resourceid = resourceid , children = children, reservations = reservations, date = session['date'], items = items, feedback = feedback, privilege = session["role id"])
 
 @app.route("/rooms/reserve", methods=['POST'])
 def reserve():
 	data = request.form
 	if data['starttime'] >= data['endtime']:
-		return render_template("reservations.html", reservations = getReservations(session["username"]), notification = "Error - start time must be before end time")
+		return render_template("reservations.html", reservations = getReservations(session["username"]), notification = "Error - start time must be before end time", privilege = session["role id"])
 	start = str(session['date']) + ' ' + str(data['starttime'] + ':00')
 	end = str(session['date']) + ' ' + str(data['endtime'] + ':00')
 	currentuser = session['username']
@@ -142,7 +148,7 @@ def reserve():
 	count = int(data['Amount'])
 	if count == 0:
 		makeReservation(currentuser,resourceid,start,end)
-	if data['monthly']:
+	else:
 		count = int(data['Amount'])
 		over = 0
 		while count > -1:
@@ -184,7 +190,7 @@ def unreserve(reservationid):
 def claim(username):
 	me = session["username"]
 	changeManager(username,me)
-	changeUserRole(username,3) #Make them into normal users
+	changeUserRole(username,2) #Make them into normal users
 	return management_page()
 
 ############################################################
