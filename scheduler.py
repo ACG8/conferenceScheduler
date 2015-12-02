@@ -112,45 +112,28 @@ def change_password():
 
 @app.route("/search", methods=['POST'])
 def search():
-	print "searcha"
 	data = request.form
-	print "searchb"
 	session['date'] = data['date']
-	print "searchc"
 	resourceTypeIDs = getResourceTypes()
-	print "searchd"
 	filterResources = [rType[0] for rType in resourceTypeIDs if data.get("rescType " + str(rType[0]))]
-	print "searche"
 	rooms = filterLocations(data['building'])
-	print "searchf"
 	rooms = [room for room in rooms if checkHasResources(room[1],filterResources)]
-	print "searchg"
 	if session["date"]: return render_template("rooms.html", building = (getBuildingName(data["building"]),data["building"]), rooms = rooms, privilege = session["role id"])
 	return render_template("search.html", resourceTypes = getResourceTypes(), buildings = getBuildings(), notification = "Must select a date", privilege = session["role id"])
 		
 @app.route("/rooms/<resourceid>")
 def rooms(resourceid):
-	print "roomsa"
 	session['rid'] = resourceid
-	print "roomsb"
 	children = getChildResources(resourceid,"type_id")
-	print "roomsc"
 	children = [getResourceName(r) for r in children]
-	print "roomsd"
 	rscText = getResourceLocation(resourceid)
-	print "roomse"
 	rscText = (getBuildingName(rscText[0]), rscText[1])
-	print "roomsf"
 	feedback = getFeedback(resourceid)
-	print "roomsg"
 	reservations = getReservationFromDate(session['date'])
-	print "roomsh"
 	items = []
-	print "roomsi"
 	for item in reservations:
 		if int(item[1]) == int(resourceid):
 			items.append("{} - {}".format(str(item[2].strftime("%I:%M %p")),str(item[3].strftime("%I:%M %p"))))
-	print "roomsj"
 	return render_template("resource.html", resourcetext = rscText, resourceid = resourceid , children = children, reservations = reservations, date = session['date'], items = items, feedback = feedback, privilege = session["role id"])
 
 @app.route("/rooms/reserve", methods=['POST'])
@@ -207,7 +190,7 @@ def unreserve(reservationid):
 def claim(username):
 	me = session["username"]
 	changeManager(username,me)
-	changeUserRole(username,3) #Make them into normal users
+	changeUserRole(username,2) #Make them into normal users
 	return management_page()
 
 ############################################################

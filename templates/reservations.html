@@ -31,7 +31,7 @@
 			Click on reservation to delete it
 			{% for item in reservations %}
 			<p>
-				<a href='/reservations/{{item[0]}}' onclick="javascript:fnConfirm()">Reservation for resource no. {{item[1]}} from {{item[2]}} to {{item[3]}}</a>
+				<a href='/reservations/{{item[0]}}' onclick="return fnConfirm()">Reservation for resource no. {{item[1]}} from {{item[2]}} to {{item[3]}}</a>
 			</p>
 			{% endfor %}
 		</div>
