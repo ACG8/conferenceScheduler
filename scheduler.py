@@ -117,17 +117,27 @@ def search():
 		
 @app.route("/rooms/<resourceid>")
 def rooms(resourceid):
+	print "a"
 	session['rid'] = resourceid
+	print "b"
 	children = getChildResources(resourceid,"type_id")
+	print "c"
 	children = [getResourceName(r) for r in children]
+	print "d"
 	rscText = getResourceLocation(resourceid)
+	print "e"
 	rscText = (getBuildingName(rscText[0]), rscText[1])
+	print "f"
 	feedback = getFeedback(resourceid)
+	print "g"
 	reservations = getReservationFromDate(session['date'])
+	print "h"
 	items = []
+	print "i"
 	for item in reservations:
 		if int(item[1]) == int(resourceid):
 			items.append("{} - {}".format(str(item[2].strftime("%I:%M %p")),str(item[3].strftime("%I:%M %p"))))
+	print "j"
 	return render_template("resource.html", resourcetext = rscText, resourceid = resourceid , children = children, reservations = reservations, date = session['date'], items = items, feedback = feedback)
 
 @app.route("/rooms/reserve", methods=['POST'])
