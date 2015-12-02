@@ -38,19 +38,19 @@ def dashboard_page():
 @app.route("/preferencespage")
 def preferences_page():
 	data = getUserData(session["username"])
-	return render_template("preferences.html", data = data)
+	return render_template("preferences.html", data = data, privilege = session["role id"])
 
 @app.route("/reservationspage")
 def reservations_page():
-	return render_template("reservations.html", reservations = getReservations(session["username"]))
+	return render_template("reservations.html", reservations = getReservations(session["username"]), privilege = session["role id"])
 
 @app.route("/searchpage")
 def search_page():
-	return render_template("search.html", resourceTypes = getResourceTypes(), buildings = getBuildings())
+	return render_template("search.html", resourceTypes = getResourceTypes(), buildings = getBuildings(), privilege = session["role id"])
 
 @app.route("/managementpage")
 def management_page():
-	return render_template("management.html", newUsers = getNewUsers(), myUsers = getMyUsers(session["username"]))
+	return render_template("management.html", newUsers = getNewUsers(), myUsers = getMyUsers(session["username"]), privilege = session["role id"])
 
 ############################################################
 ################      Account Functions     ################
@@ -106,45 +106,52 @@ def change_password():
 
 @app.route("/search", methods=['POST'])
 def search():
+	print "searcha"
 	data = request.form
+	print "searchb"
 	session['date'] = data['date']
+	print "searchc"
 	resourceTypeIDs = getResourceTypes()
+	print "searchd"
 	filterResources = [rType[0] for rType in resourceTypeIDs if data.get("rescType " + str(rType[0]))]
+	print "searche"
 	rooms = filterLocations(data['building'])
+	print "searchf"
 	rooms = [room for room in rooms if checkHasResources(room[1],filterResources)]
-	if session["date"]: return render_template("rooms.html", building = (getBuildingName(data["building"]),data["building"]), rooms = rooms)
-	return render_template("search.html", resourceTypes = getResourceTypes(), buildings = getBuildings(), notification = "Must select a date")
+	print "searchg"
+	if session["date"]: return render_template("rooms.html", building = (getBuildingName(data["building"]),data["building"]), rooms = rooms, privilege = session["role id"])
+	return render_template("search.html", resourceTypes = getResourceTypes(), buildings = getBuildings(), notification = "Must select a date", privilege = session["role id"])
 		
 @app.route("/rooms/<resourceid>")
 def rooms(resourceid):
-	print "a"
+	print "roomsa"
 	session['rid'] = resourceid
-	print "b"
+	print "roomsb"
 	children = getChildResources(resourceid,"type_id")
-	print "c"
+	print "roomsc"
 	children = [getResourceName(r) for r in children]
-	print "d"
+	print "roomsd"
 	rscText = getResourceLocation(resourceid)
-	print "e"
+	print "roomse"
 	rscText = (getBuildingName(rscText[0]), rscText[1])
-	print "f"
+	print "roomsf"
 	feedback = getFeedback(resourceid)
-	print "g"
+	print "roomsg"
 	reservations = getReservationFromDate(session['date'])
-	print "h"
+	print "roomsh"
 	items = []
-	print "i"
+	print "roomsi"
 	for item in reservations:
 		if int(item[1]) == int(resourceid):
 			items.append("{} - {}".format(str(item[2].strftime("%I:%M %p")),str(item[3].strftime("%I:%M %p"))))
-	print "j"
-	return render_template("resource.html", resourcetext = rscText, resourceid = resourceid , children = children, reservations = reservations, date = session['date'], items = items, feedback = feedback)
+	print "roomsj"
+	return render_template("resource.html", resourcetext = rscText, resourceid = resourceid , children = children, reservations = reservations, date = session['date'], items = items, feedback = feedback, privilege = session["role id"])
 
 @app.route("/rooms/reserve", methods=['POST'])
 def reserve():
 	data = request.form
 	if data['starttime'] >= data['endtime']:
-		return render_template("reservations.html", reservations = getReservations(session["username"]), notification = "Error - start time must be before end time")
+		return render_template("reservations.html", reservations = getReservations(session["username"]), notification = "Error - start time must be before end time", privilege = session["role id"])
 	start = str(session['date']) + ' ' + str(data['starttime'] + ':00')
 	end = str(session['date']) + ' ' + str(data['endtime'] + ':00')
 	currentuser = session['username']
@@ -152,7 +159,7 @@ def reserve():
 	count = int(data['Amount'])
 	if count == 0:
 		makeReservation(currentuser,resourceid,start,end)
-	if data['monthly']:
+	else:
 		count = int(data['Amount'])
 		over = 0
 		while count > -1:
