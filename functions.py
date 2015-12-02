@@ -33,7 +33,7 @@ def createAccount(username,password,repass,fname,lname,email):
     fname = sanitize(fname)
     lname = sanitize(lname)
     email = sanitize(email)
-    
+    print "createaccount a"
     #Check whether password and repassword match
     if password != repass: return (False,"Failure - the given passwords do not match.")
 
@@ -51,15 +51,19 @@ def createAccount(username,password,repass,fname,lname,email):
     fname = "\"{}\"".format(fname)
     lname = "\"{}\"".format(lname)
     email = "\"{}\"".format(email)
-
+    print "createaccount b"
     #Establish account and return True
+    print "createaccount c"
     date = "\"{}\"".format(str(datetime.datetime.now()))
+    print "createaccount d"
     db.append("tbl_users",
               (username,password,fname,lname,email,
-               username,date,"0"),
+               date,"1"),
               ("username","password","first_name","last_name","mail",
-               "last_updated_by","last_updated_date","role_id"))
+               "last_updated_date","role_id"))
+    print "createaccount e"
     db.commit()
+    print "createaccount f"
     return (True, "Success - account created.")
 
 def filterLocations(building,room=None):
@@ -205,7 +209,7 @@ def checkHasResources(roomID,rscTypeIDList):
 def getNewUsers():
     "Returns a list of new users"
     db = Connection("root","password","scheduler")
-    dbTuple = db.select("tbl_users",["username"],["role_id"],["="],[0])
+    dbTuple = db.select("tbl_users",["username"],["role_id"],["="],[1])
     return [d[0] for d in dbTuple]
 
 def getMyUsers(username):

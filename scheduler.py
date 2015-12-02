@@ -84,12 +84,18 @@ def forgot():
 # Signup function: Gets result from account creation and if successful shows the hello page with data, else shows the signup page with error
 @app.route("/signup", methods=['POST'])
 def sign_up():
+	print "signup a"
 	data = request.form
+	print "signup b"
 	account = createAccount(data['username'],data['password'],data['passwordconfirmation'],data['firstname'],data['lastname'],data['email'])
+	print "signup c"
 	print account
+	print "signup d"
 	if account[0]:
+		print "signup e"
 		session["username"] = data['username']
-		return dashboard_page()
+		print "signup f"
+		return render_template("index.html")
 	else:
 		return render_template("signup.html", data = account[1])
 
