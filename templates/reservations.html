@@ -20,12 +20,6 @@
 		{% if privilege > 2 %}
 		<div class="manage"><a href="/managementpage" style="display:block; margin-top:30px">Manage Users</a></div>
 		{% endif %}
-		<div class="navi">
-			{% if privilege > 1 %}<a href="/searchpage" style="display:block">Make Reservation</a>{% endif %}
-			<a href="/preferencespage" style="display:block; margin-top:30px">User Profile</a>
-			{% if privilege > 1 %}<a href="/reservationspage" style="display:block; margin-top:30px">Reservation History</a>{% endif %}
-			<a href="/" style="display:block; margin-top:30px">Log Out</a>
-		</div>
 		<div class="content">
 			<span style="color: red; display: block">{{ notification }}</span>
 			<span>My Reservations</span>
@@ -36,6 +30,12 @@
 				<a href='/reservations/{{item[0]}}' onclick="return fnConfirm()">Reservation for resource no. {{item[1]}} from {{item[2]}} to {{item[3]}}</a>
 			</p>
 			{% endfor %}
+		</div>
+		<div class="navi">
+			{% if privilege > 1 %}<a href="/searchpage" style="display:block">Make Reservation</a>{% endif %}
+			<a href="/preferencespage" style="display:block; margin-top:30px">User Profile</a>
+			{% if privilege > 1 %}<a href="/reservationspage" style="display:block; margin-top:30px">Reservation History</a>{% endif %}
+			<a href="/" style="display:block; margin-top:30px">Log Out</a>
 		</div>
 		<div class="footer">
 			<span>Group 1</span>

@@ -14,12 +14,6 @@
 		{% if privilege > 2 %}
 		<div class="manage"><a href="/managementpage" style="display:block; margin-top:30px">Manage Users</a></div>
 		{% endif %}
-		<div class="navi">
-			{% if privilege!=0 %}<a href="/searchpage" style="display:block">Make Reservation</a>{% endif %}
-			<a href="/preferencespage" style="display:block; margin-top:30px">User Profile</a>
-			{% if privilege!=0 %}<a href="/reservationspage" style="display:block; margin-top:30px">Reservation History</a>{% endif %}
-			<a href="/" style="display:block; margin-top:30px">Log Out</a>
-		</div>
 		<div class="content">
 			{% for item in children %}
 			<span style="display: block">
@@ -38,7 +32,7 @@
 						{% endfor %}
 					</ul>
 				</div>
-				<div style="float: right; width: 45%; border: 1px solid black; padding: 10px">
+				<div style="clear: left; float: left; width: 45%; border: 1px solid black; padding: 10px">
 					<table>
 						<tr><td>Start time:</td><td><input type="time" name="starttime" step=1800></td></tr>
 						<tr><td>End time:</td><td><input type="time" name="endtime" step=1800></td></tr>
@@ -52,30 +46,30 @@
 					</table>
 				</div>
 			</form>
-			<form action="feedback" method="POST">
+			<!-- <form action="feedback" method="POST">
 				<div style="margin-top:10px; clear: both; float: left; width: 45%; padding: 10px">
 					<input type="hidden" name="resourceid" value="{{resourceid}}">
-					  <span style="display: block; font-weight: bold">Feedback</span>
-						Rating:<select name="rating">
-						<option value="0">0</option>
-						<option value="1">1</option>
-						<option value="2">2</option>
-						<option value="3">3</option>
-						<option value="4">4</option>
-						<option value="5">5</option>
-						<option value="6">6</option>
-						<option value="7">7</option>
-						<option value="8">8</option>
-						<option value="9">9</option>
-						<option value="10">10</option>
-					</select>
-					<span style="display: block">Comments:</span>
-					<textarea name="comment" style="width: 90%"></textarea>
-					<button class="button">Done</button>
-					<span style="display: block"></span>
+					<span style="display: block; font-weight: bold">Feedback</span>
+					Rating:<select name="rating">
+					<option value="0">0</option>
+					<option value="1">1</option>
+					<option value="2">2</option>
+					<option value="3">3</option>
+					<option value="4">4</option>
+					<option value="5">5</option>
+					<option value="6">6</option>
+					<option value="7">7</option>
+					<option value="8">8</option>
+					<option value="9">9</option>
+					<option value="10">10</option>
+				</select>
+				<span style="display: block">Comments:</span>
+				<textarea name="comment" style="width: 90%"></textarea>
+				<button class="button">Done</button>
+				<span style="display: block"></span>
 			</div>
-		</form>
-		<div style="margin-top:10px; float: right; width: 45%; height: 30%; padding: 10px; overflow:scroll">
+		</form> -->
+		<div style="width: 45%; height: 30%; padding: 10px; overflow:scroll">
 			{% for x in feedback %}
 			<span style="display: block; font-weight: bold">Review</span>
 			<span style="display: block">Date: {{x[2]}}</span>
@@ -84,6 +78,12 @@
 			{% endfor %}
 		</div>
 	</div>
+	<div class="navi">
+			{% if privilege!=0 %}<a href="/searchpage" style="display:block">Make Reservation</a>{% endif %}
+			<a href="/preferencespage" style="display:block; margin-top:30px">User Profile</a>
+			{% if privilege!=0 %}<a href="/reservationspage" style="display:block; margin-top:30px">Reservation History</a>{% endif %}
+			<a href="/" style="display:block; margin-top:30px">Log Out</a>
+		</div>
 	<div class="footer">
 		<span>Group 1</span>
 	</div>

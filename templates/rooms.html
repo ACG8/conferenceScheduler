@@ -14,12 +14,6 @@
 		{% if privilege > 2 %}
 		<div class="manage"><a href="/managementpage" style="display:block; margin-top:30px">Manage Users</a></div>
 		{% endif %}
-		<div class="navi">
-			{% if privilege > 1 %}<a href="/searchpage" style="display:block">Make Reservation</a>{% endif %}
-			<a href="/preferencespage" style="display:block; margin-top:30px">User Profile</a>
-			{% if privilege > 1 %}<a href="/reservationspage" style="display:block; margin-top:30px">Reservation History</a>{% endif %}
-			<a href="/" style="display:block; margin-top:30px">Log Out</a>
-		</div>
 		<div class="content">
 		  <span>{{building[0]}}</span>
 			{% for item in rooms %}
@@ -27,6 +21,12 @@
 				<a href='/rooms/{{item[1]}}'>{{item[0]}}</a>
 			</p>
 			{% endfor %}
+		</div>
+		<div class="navi">
+			{% if privilege > 1 %}<a href="/searchpage" style="display:block">Make Reservation</a>{% endif %}
+			<a href="/preferencespage" style="display:block; margin-top:30px">User Profile</a>
+			{% if privilege > 1 %}<a href="/reservationspage" style="display:block; margin-top:30px">Reservation History</a>{% endif %}
+			<a href="/" style="display:block; margin-top:30px">Log Out</a>
 		</div>
 		<div class="footer">
 			<span>Group 1</span>
