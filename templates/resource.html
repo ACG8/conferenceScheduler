@@ -70,12 +70,21 @@
 			</div>
 		</form> -->
 		<div style="width: 45%; height: 30%; padding: 10px; overflow:scroll">
-			{% for x in feedback %}
 			<span style="display: block; font-weight: bold">Review</span>
-			<span style="display: block">Date: {{x[2]}}</span>
-			<span style="display: block">Rating: {{x[0]}}</span>
-			<span style="display: block">Review: {{x[1]}}</span>
-			{% endfor %}
+		    <table>
+		    	<tr>
+		    		<td>Date</td>
+		    		<td>Rating</td>
+		    		<td>Review</td>
+		    	</tr>
+		    	{% for x in feedback %}
+		    	<tr>
+		    		<td>{{x[2]}}</td>
+		    		<td>{{x[0]}}</td>
+		    		<td>{{x[1]}}</td>
+		    	</tr>
+		    	{% endfor %}
+		    </table>
 		</div>
 	</div>
 	<div class="navi">

@@ -2,7 +2,7 @@
 <html lang="en">
 
 <head>
-	<title>Conference Scheduler - Dash Board</title>
+	<title>Conference Scheduler - Report</title>
 	<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css') }}">
 </head>
 <body>
@@ -16,6 +16,21 @@
 			<a href="/report" style="display:block; margin-top:30px">Report</a>
 		</div>
 		{% endif %}
+		<div class="content">
+			<div>
+				<table>
+					<tr>
+						<td>From Date</td>
+						<td><input type="date"></td>
+					</tr>
+					<tr>
+						<td>To Date</td>
+						<td><input type="date"></td>
+					</tr>
+				</table>
+				<button class="button">Search</button>
+			</div>
+		</div>
 		<div class="navi">
 			{% if privilege > 1 %}<a href="/searchpage" style="display:block">Make Reservation</a>{% endif %}
 			<a href="/preferencespage" style="display:block; margin-top:30px">User Profile</a>
