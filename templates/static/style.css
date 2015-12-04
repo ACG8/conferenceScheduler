@@ -23,7 +23,16 @@ div {
 	clear: both;
 }
 
+.manage {
+	float: left;
+	width : 20%;
+	height: 50px;
+	background-color: lightblue;
+	padding: 10px;
+}
+
 .navi {
+	clear: left;
 	float: left;
 	width: 20%;
 	height: 450px;

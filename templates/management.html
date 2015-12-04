@@ -11,12 +11,14 @@
 		<div class="header">
 			<span style="font-size: 30px">Manage Users</span>
 		</div>
+		{% if privilege > 2 %}
+		<div class="manage"><a href="/managementpage" style="display:block; margin-top:30px">Manage Users</a></div>
+		{% endif %}
 		<div class="navi">
 			{% if privilege!=0 %}<a href="/searchpage" style="display:block">Make Reservation</a>{% endif %}
 			<a href="/preferencespage" style="display:block; margin-top:30px">User Profile</a>
 			{% if privilege!=0 %}<a href="/reservationspage" style="display:block; margin-top:30px">Reservation History</a>{% endif %}
 			<a href="/" style="display:block; margin-top:30px">Log Out</a>
-			{% if privilege==2 %}<a href="/managementpage" style="display:block; margin-top:30px">Manage Users</a>{% endif %}
 		</div>
 		<div class="content">
 			<span style="display: block">Approve and Claim New Users</span>
