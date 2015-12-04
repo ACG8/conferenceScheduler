@@ -23,29 +23,55 @@
 		<div class="content">
 			<span style="color: red; display: block">{{ notification }}</span>
 			<span>Future Reservations</span>
-			<br>
-			Click on reservation to cancel it
-			{% for R in FutureReservations %}
-			<p>
-				<a href='/reservations/{{R[0]}}' onclick="return fnConfirm()">Reservation for resource no. {{R[1]}} from {{R[2]}} to {{R[3]}}</a>
-			</p>
-			{% endfor %}
+			<table border="1">
+				<tr>
+					<td>Room No.</td>
+					<td>From Date</td>
+					<td>To Date</td>
+					<td>Delete?</td>
+				</tr>
+				{% for R in FutureReservations %}
+				<tr>
+					<td>{{R[1]}}</td>
+					<td>{{R[2]}}</td>
+					<td>{{R[3]}}</td>
+					<td><a href='/reservations/{{R[0]}}' onclick="return fnConfirm()"></td>
+				</tr>
+				{% endfor %}
+			</table>
 			<span>Current Reservations</span>
-			<br>
-			{% for R in CurrentReservations %}
-			<p>
-				Reservation for resource no. {{R[1]}} from {{R[2]}} to {{R[3]}}</a>
-			</p>
-			{% endfor %}
-			<span>Past Reservations</span>
-			<br>
-			Click on reservation to leave feedback
-			{% for R in PastReservations %}
-			<p>
-				<a href='/feedback/{{R[0]}}'>Reservation for resource no. {{R[1]}} from {{R[2]}} to {{R[3]}}</a>
-			</p>
-			{% endfor %}
+			<table border="1">
+				<tr>
+					<td>Room No.</td>
+					<td>From Date</td>
+					<td>To Date</td>
+				</tr>
+				{% for R in CurrentReservations %}
+				<tr>
+					<td>{{R[1]}}</td>
+					<td>{{R[2]}}</td>
+					<td>{{R[3]}}</td>
+				</tr>
+  			{% endfor %}
+			</table>
 
+			<span>Past Reservations</span>
+			<table border="1">
+				<tr>
+					<td>Room No.</td>
+					<td>From Date</td>
+					<td>To Date</td>
+					<td>Delete?</td>
+				</tr>
+				{% for R in PastReservations %}
+				<tr>
+					<td>{{R[1]}}</td>
+					<td>{{R[2]}}</td>
+					<td>{{R[3]}}</td>
+					<td><a href='/feedback/{{R[0]}}' onclick="return fnConfirm()"></td>
+				</tr>
+				{% endfor %}
+			</table>
 		</div>
 		<div class="navi">
 			{% if privilege > 1 %}<a href="/searchpage" style="display:block">Make Reservation</a>{% endif %}
