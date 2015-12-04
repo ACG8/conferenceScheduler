@@ -151,11 +151,26 @@ def getBuildingName(bId):
     dbTuple = db.select("tbl_buildings",["name"],["id"],["="],[bId])
     return dbTuple[0][0]
 
-def getReservations(username):
-    "Returns all reservations for username"
+def getFutureReservations(username):
+    "Returns all future reservations for username"
+    date = "{}".format(str(datetime.datetime.now()))
     db = Connection("root","password","scheduler")
-    dbTuple = db.select("tbl_reservations",["id","tbl_resources_id","from_datetime","to_datetime"],["reserved_by"],["="],[username])
-    return dbTuple
+    cursor = db.execute("select id,tbl_resources_id, from_datetime, to_datetime from tbl_reservations where reserved_by = \"{}\" and from_datetime > now()".format(username))
+    return cursor.fetchall()
+
+def getCurrentReservations(username):
+    "Returns all current reservations for username"
+    date = "{}".format(str(datetime.datetime.now()))
+    db = Connection("root","password","scheduler")
+    cursor = db.execute("select id,tbl_resources_id, from_datetime, to_datetime from tbl_reservations where reserved_by = \"{}\" and from_datetime <= now() and now() <= to_datetime".format(username))
+    return cursor.fetchall()
+
+def getPastReservations(username):
+    "Returns all past reservations for username"
+    date = "{}".format(str(datetime.datetime.now()))
+    db = Connection("root","password","scheduler")
+    cursor = db.execute("select id,tbl_resources_id, from_datetime, to_datetime from tbl_reservations where reserved_by = \"{}\" and to_datetime < now()".format(username))
+    return cursor.fetchall()
 
 def deleteReservation(Rid):
     db = Connection("root","password","scheduler")

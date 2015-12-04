@@ -27,6 +27,11 @@ class Connection:
         tables = cursor.fetchall()
         return tables
 
+    def execute(self,statement):
+        cursor = self.db.cursor()
+        cursor.execute(statement)
+        return cursor
+
     def update(self,table,CAs,CVs,FAs,FOs,FVs):
         "Changes each attribute in CAs to the value in CVs when filter FAs,FOs,FVs holds"
         

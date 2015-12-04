@@ -42,7 +42,12 @@ def preferences_page():
 
 @app.route("/reservationspage")
 def reservations_page():
-	return render_template("reservations.html", reservations = getReservations(session["username"]), privilege = session["role id"])
+	return render_template(
+		"reservations.html", 
+		FutureReservations = getFutureReservations(session["username"]),
+		CurrentReservations = getCurrentReservations(session["username"]),
+		PastReservations = getPastReservations(session["username"]),
+		privilege = session["role id"])
 
 @app.route("/searchpage")
 def search_page():
@@ -140,7 +145,7 @@ def rooms(resourceid):
 def reserve():
 	data = request.form
 	if data['starttime'] >= data['endtime']:
-		return render_template("reservations.html", reservations = getReservations(session["username"]), notification = "Error - start time must be before end time", privilege = session["role id"])
+		return reservations_page()
 	start = str(session['date']) + ' ' + str(data['starttime'] + ':00')
 	end = str(session['date']) + ' ' + str(data['endtime'] + ':00')
 	currentuser = session['username']

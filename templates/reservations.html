@@ -22,14 +22,30 @@
 		{% endif %}
 		<div class="content">
 			<span style="color: red; display: block">{{ notification }}</span>
-			<span>My Reservations</span>
+			<span>Future Reservations</span>
 			<br>
-			Click on reservation to delete it
-			{% for item in reservations %}
+			Click on reservation to cancel it
+			{% for R in FutureReservations %}
 			<p>
-				<a href='/reservations/{{item[0]}}' onclick="return fnConfirm()">Reservation for resource no. {{item[1]}} from {{item[2]}} to {{item[3]}}</a>
+				<a href='/reservations/{{R[0]}}' onclick="return fnConfirm()">Reservation for resource no. {{R[1]}} from {{R[2]}} to {{R[3]}}</a>
 			</p>
 			{% endfor %}
+			<span>Current Reservations</span>
+			<br>
+			{% for R in CurrentReservations %}
+			<p>
+				Reservation for resource no. {{R[1]}} from {{R[2]}} to {{R[3]}}</a>
+			</p>
+			{% endfor %}
+			<span>Past Reservations</span>
+			<br>
+			Click on reservation to leave feedback
+			{% for R in PastReservations %}
+			<p>
+				<a href='/feedback/{{R[0]}}'>Reservation for resource no. {{R[1]}} from {{R[2]}} to {{R[3]}}</a>
+			</p>
+			{% endfor %}
+
 		</div>
 		<div class="navi">
 			{% if privilege > 1 %}<a href="/searchpage" style="display:block">Make Reservation</a>{% endif %}
