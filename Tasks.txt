@@ -6,14 +6,12 @@ manage my users
 	user
 		<user reservations>
 
-Ananda - Split reservation history into past and future - Past has feedback, future has cancel/change
-
 Limit on number of reservations
 
 Implement waitlist
 
 Qiao - Remove feedback from search page
 
-Report for manager
+Qiao - Report for manager
 
 Difference between managers and admins
