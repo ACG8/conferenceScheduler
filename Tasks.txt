@@ -1,0 +1,19 @@
+For manager, put "Manage user" first in link list in separate color box
+
+Admins can assign manager to user
+
+manage my users
+	user
+		<user reservations>
+
+Split reservation history into past and future - Past has feedback, future has cancel/change
+
+Limit on number of reservations
+
+Implement waitlist
+
+Remove feedback from search page
+
+Report for manager
+
+Difference between managers and admins
