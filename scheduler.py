@@ -118,13 +118,19 @@ def change_password():
 @app.route("/search", methods=['POST'])
 def search():
 	data = request.form
-	session['date'] = data['date']
+	session["date"] = data["date"]
+	if not session["date"]: 
+		return render_template("search.html", resourceTypes = getResourceTypes(), buildings = getBuildings(), notification = "Must select a date.", privilege = session["role id"])
+	date = datetime.datetime.strptime(session["date"],"%Y-%m-%d").date()
 	resourceTypeIDs = getResourceTypes()
 	filterResources = [rType[0] for rType in resourceTypeIDs if data.get("rescType " + str(rType[0]))]
 	rooms = filterLocations(data['building'])
 	rooms = [room for room in rooms if checkHasResources(room[1],filterResources)]
-	if session["date"]: return render_template("rooms.html", building = (getBuildingName(data["building"]),data["building"]), rooms = rooms, privilege = session["role id"])
-	return render_template("search.html", resourceTypes = getResourceTypes(), buildings = getBuildings(), notification = "Must select a date", privilege = session["role id"])
+	print datetime.datetime.now().date()
+	if date < datetime.datetime.now().date():
+		return render_template("search.html", resourceTypes = getResourceTypes(), buildings = getBuildings(), notification = "Cannot select a date in the past.", privilege = session["role id"])
+	return render_template("rooms.html", building = (getBuildingName(data["building"]),data["building"]), rooms = rooms, privilege = session["role id"])
+	
 		
 @app.route("/rooms/<resourceid>")
 def rooms(resourceid):
@@ -134,20 +140,24 @@ def rooms(resourceid):
 	rscText = getResourceLocation(resourceid)
 	rscText = (getBuildingName(rscText[0]), rscText[1])
 	feedback = getFeedback(resourceid)
-	reservations = getReservationFromDate(session['date'])
+	reservations = getReservationFromDate(session["date"])
 	items = []
 	for item in reservations:
 		if int(item[1]) == int(resourceid):
 			items.append("{} - {}".format(str(item[2].strftime("%I:%M %p")),str(item[3].strftime("%I:%M %p"))))
-	return render_template("resource.html", resourcetext = rscText, resourceid = resourceid , children = children, reservations = reservations, date = session['date'], items = items, feedback = feedback, privilege = session["role id"])
+	return render_template("resource.html", resourcetext = rscText, resourceid = resourceid , children = children, reservations = reservations, date = session["date"], items = items, feedback = feedback, privilege = session["role id"])
 
 @app.route("/rooms/reserve", methods=['POST'])
 def reserve():
 	data = request.form
-	if data['starttime'] >= data['endtime']:
-		return reservations_page()
-	start = str(session['date']) + ' ' + str(data['starttime'] + ':00')
-	end = str(session['date']) + ' ' + str(data['endtime'] + ':00')
+	starttime = datetime.datetime.strptime(data['starttime'],"%H:%M").time()
+	endtime = datetime.datetime.strptime(data['starttime'],"%H:%M").time()
+	date = datetime.datetime.strptime(session["date"],"%Y-%m-%d").date()
+	now = datetime.datetime.now()
+	if (date >= now.date() and starttime < now.time()) or starttime >= endtime:
+		return render_template("search.html", resourceTypes = getResourceTypes(), buildings = getBuildings(), notification = "Cannot select a time in the past.", privilege = session["role id"])
+	start = "{} {}:00".format(session["date"],data["starttime"])
+	end = "{} {}:00".format(session["date"],data["endtime"])
 	currentuser = session['username']
 	resourceid = session['rid']
 	count = int(data['Amount'])
@@ -158,16 +168,16 @@ def reserve():
 		over = 0
 		while count > -1:
 			makeReservation(currentuser,resourceid,start,end)
-			month = int(session['date'][5:7]) + count
+			month = int(session["date"][5:7]) + count
 			if month > 12:
 				month = '0' + str(1 + over)
 				print month
-				year = int(session['date'][:4]) + 1
-				day = int(session['date'][-2:])
+				year = int(session["date"][:4]) + 1
+				day = int(session["date"][-2:])
 				over = over + 1
 			else:
-				day = int(session['date'][-2:])
-				year = int(session['date'][:4])
+				day = int(session["date"][-2:])
+				year = int(session["date"][:4])
 			start = str(year) + '-' + str(month) + '-' + str(day) + ' ' + str(data['starttime'] + ':00')
 			end = str(year) + '-' + str(month) + '-' + str(day) + ' ' + str(data['endtime'] + ':00')
 			count = count - 1
