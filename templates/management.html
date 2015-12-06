@@ -26,7 +26,7 @@
 				<span>Manage My Users</span>
 				{% for mUser in myUsers %}
 				<p>
-					{{mUser}}
+					<a href="/manage/reservations/{{mUser}}">{{mUser}}</a>
 				</p>
 				{% endfor %}
 			</div>

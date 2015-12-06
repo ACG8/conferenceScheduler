@@ -102,6 +102,21 @@ def getReservationTimes(resourceID,date):
     reservationTimes = [(r[2],r[3]) for r in reservations if r[1]==resourceID]
     return reservationTimes
 
+def getReservationFromID(id):
+    """Returns a list of reservation ids beginning or ending on the specified date.
+    Input must be in YYYY-MM-DD format"""
+    id = sanitize(id)
+
+    db = Connection("root","password","scheduler").db
+    cursor = db.cursor()
+    query = """
+        SELECT * FROM tbl_reservations WHERE
+        id = {};
+    """.format(id)
+    cursor.execute(query)
+    result = cursor.fetchall()
+    return result
+
 def makeReservation(username,resourceID,start,end):
     db = Connection("root","password","scheduler")
     date = "\"{}\"".format(str(datetime.datetime.now()))

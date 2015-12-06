@@ -29,13 +29,15 @@
 					<td>From Date</td>
 					<td>To Date</td>
 					<td>Delete?</td>
+					<td>Update</td>
 				</tr>
 				{% for R in FutureReservations %}
 				<tr>
 					<td>{{R[1]}}</td>
 					<td>{{R[2]}}</td>
 					<td>{{R[3]}}</td>
-					<td><a href='/reservations/{{R[0]}}' onclick="return fnConfirm()"></td>
+					<td><a href='/reservations/{{R[0]}}' onclick="return fnConfirm()">Delete</a></td>
+					<td><a href='/manage/update/{{R[0]}}'>Update</a></td>
 				</tr>
 				{% endfor %}
 			</table>
@@ -61,14 +63,14 @@
 					<td>Room No.</td>
 					<td>From Date</td>
 					<td>To Date</td>
-					<td>Delete?</td>
+					<td>Leave Feedback</td>
 				</tr>
 				{% for R in PastReservations %}
 				<tr>
 					<td>{{R[1]}}</td>
 					<td>{{R[2]}}</td>
 					<td>{{R[3]}}</td>
-					<td><a href='/feedback/{{R[1]}}'>Leave Feedback</td>
+					<td><a href='/feedback/{{R[1]}}'>Leave Feedback</a></td>
 				</tr>
 				{% endfor %}
 			</table>
