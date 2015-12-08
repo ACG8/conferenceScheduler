@@ -24,6 +24,7 @@ div {
 }
 
 .manage {
+	clear: left;
 	float: left;
 	width : 20%;
 	height: 80px;
