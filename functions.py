@@ -293,7 +293,6 @@ def giveFeedback(resourceID,rating,comments):
     )
     db.commit()
 
-<<<<<<< HEAD
 def getReport(fromDate, toDate):
     db = Connection("root","password","scheduler").db
     cursor = db.cursor()
@@ -307,5 +306,3 @@ def getReport(fromDate, toDate):
     """.format(sanitize(fromDate),sanitize(toDate))
     cursor.execute(query)
     return cursor.fetchall()
-=======
->>>>>>> origin/master

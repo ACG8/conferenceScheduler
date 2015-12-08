@@ -57,15 +57,13 @@ def search_page():
 def management_page():
 	return render_template("management.html", newUsers = getNewUsers(), myUsers = getMyUsers(session["username"]), privilege = session["role id"])
 
-<<<<<<< HEAD
 @app.route("/report")
 def report_page():
 	return render_template("report.html", report = query(request.form["fromDate"], request.form["toDate"]), privilege = session["role id"])
-=======
+
 @app.route("/adminpage")
 def admin_page():
 	return render_template("admin.html", users = getNewAndRegUsers(), privilege = session["role id"])
->>>>>>> origin/master
 
 ############################################################
 ################      Account Functions     ################
