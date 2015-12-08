@@ -298,7 +298,7 @@ def manageResUpdate():
 ############################################################	
 @app.route("/admin/change")
 def admin_change():
-	return render_template("adminChange.html", users = getNewAndRegUsers(), managers = getManagers(), privilege = session["role id"])
+	return render_template("adminChange.html", users = getNewAndRegUsers(), managers = getManagers() + getAdmins(), privilege = session["role id"])
 	
 @app.route("/admin/changeManager", methods=['POST'])
 def admin_changeManager():	

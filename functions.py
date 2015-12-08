@@ -269,6 +269,12 @@ def getManagers():
     dbTuple = db.select("tbl_users",["username"],["role_id"],["="],[3])
     return [d[0] for d in dbTuple]
 
+def getAdmins():
+    "Returns a list of managers"
+    db = Connection("root","password","scheduler")
+    dbTuple = db.select("tbl_users",["username"],["role_id"],["="],[4])
+    return [d[0] for d in dbTuple]
+
 def getMyUsers(username):
     "Returns a list of users whose manager is the current user"
     db = Connection("root","password","scheduler")
