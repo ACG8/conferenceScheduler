@@ -5,10 +5,10 @@
 	<title>Conference Scheduler - My Reservations</title>
 	<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css') }}" />
 	<script type="text/javascript">
-	  function fnConfirm()
-	  {
-	  	return confirm("Are you sure you want to delete it?");
-	  }
+		function fnConfirm()
+		{
+			return confirm("Are you sure you want to delete it?");
+		}
 	</script>
 </head>
 
@@ -23,7 +23,10 @@
 		</div>
 		{% endif %}
 		{% if privilege > 2 %}
-		<div class="manage"><a href="/managementpage" style="display:block; margin-top:30px">Manage Users</a></div>
+		<div class="manage">
+			<a href="/managementpage" style="display:block;">Manage Users</a>
+			<a href="/report" style="display:block; margin-top:30px">Report</a>
+		</div>
 		{% endif %}
 		<div class="content">
 			<span style="color: red; display: block">{{ notification }}</span>
@@ -61,7 +64,7 @@
 					<td>{{R[3]}}</td>
 					<td>{{R[4]}}</td>
 				</tr>
-  			{% endfor %}
+				{% endfor %}
 			</table>
 
 			<span>Past Reservations</span>
