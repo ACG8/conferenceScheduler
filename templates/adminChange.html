@@ -13,24 +13,27 @@
 		</div>
 		{% if privilege > 3 %}
 		<div class="admin">
-			<a href="/adminpage" style="display:block; margin-top:30px">Administrator Page</a>
+			<a href="/adminpage" style="display:block;">Administrator Page</a>
 		</div>
 		{% endif %}
 		{% if privilege > 2 %}
-		<div class="manage"><a href="/managementpage" style="display:block; margin-top:30px">Manage Users</a></div>
+		<div class="manage">
+			<a href="/managementpage" style="display:block;">Manage Users</a>
+			<a href="/report" style="display:block; margin-top:30px">Report</a>
+		</div>
 		{% endif %}
 		<div class="content">
 			<form action="/admin/changeManager" method="POST">
 				<p> User: </p>
 				<select name="username">
 					{% for user in users %}
-						<option value="{{user}}">{{user}}</option>
+					<option value="{{user}}">{{user}}</option>
 					{% endfor %}
 				</select>
 				<p> Manager: </p>
 				<select name="manager">
 					{% for manager in managers %}
-						<option value="{{manager}}">{{manager}}</option>
+					<option value="{{manager}}">{{manager}}</option>
 					{% endfor %}
 				</select>
 				<br>

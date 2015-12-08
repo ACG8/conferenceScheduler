@@ -13,11 +13,14 @@
 		</div>
 		{% if privilege > 3 %}
 		<div class="admin">
-			<a href="/adminpage" style="display:block; margin-top:30px">Administrator Page</a>
+			<a href="/adminpage" style="display:block;">Administrator Page</a>
 		</div>
 		{% endif %}
 		{% if privilege > 2 %}
-		<div class="manage"><a href="/managementpage" style="display:block; margin-top:30px">Manage Users</a></div>
+		<div class="manage">
+			<a href="/managementpage" style="display:block;">Manage Users</a>
+			<a href="/report" style="display:block; margin-top:30px">Report</a>
+		</div>
 		{% endif %}
 		<div class="content">
 			{% for item in children %}
@@ -53,28 +56,28 @@
 			</form>
 		<div style="width: 45%; height: 30%; padding: 10px; overflow:scroll">
 			<span style="display: block; font-weight: bold">Review</span>
-		    <table>
-		    	<tr>
-		    		<td>Date</td>
-		    		<td>Rating</td>
-		    		<td>Review</td>
-		    	</tr>
-		    	{% for x in feedback %}
-		    	<tr>
-		    		<td>{{x[2]}}</td>
-		    		<td>{{x[0]}}</td>
-		    		<td>{{x[1]}}</td>
-		    	</tr>
-		    	{% endfor %}
-		    </table>
+			<table>
+				<tr>
+					<td>Date</td>
+					<td>Rating</td>
+					<td>Review</td>
+				</tr>
+				{% for x in feedback %}
+				<tr>
+					<td>{{x[2]}}</td>
+					<td>{{x[0]}}</td>
+					<td>{{x[1]}}</td>
+				</tr>
+				{% endfor %}
+			</table>
 		</div>
 	</div>
 	<div class="navi">
-			{% if privilege!=0 %}<a href="/searchpage" style="display:block">Make Reservation</a>{% endif %}
-			<a href="/preferencespage" style="display:block; margin-top:30px">User Profile</a>
-			{% if privilege!=0 %}<a href="/reservationspage" style="display:block; margin-top:30px">Reservation History</a>{% endif %}
-			<a href="/" style="display:block; margin-top:30px">Log Out</a>
-		</div>
+		{% if privilege!=0 %}<a href="/searchpage" style="display:block">Make Reservation</a>{% endif %}
+		<a href="/preferencespage" style="display:block; margin-top:30px">User Profile</a>
+		{% if privilege!=0 %}<a href="/reservationspage" style="display:block; margin-top:30px">Reservation History</a>{% endif %}
+		<a href="/" style="display:block; margin-top:30px">Log Out</a>
+	</div>
 	<div class="footer">
 		<span>Group 1</span>
 	</div>

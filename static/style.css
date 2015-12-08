@@ -26,16 +26,26 @@ div {
 .manage {
 	float: left;
 	width : 20%;
-	height: 50px;
+	height: 80px;
 	background-color: lightblue;
 	padding: 10px;
+	padding-bottom: 20px;
+}
+
+.admin {
+	float: left;
+	width : 20%;
+	height: 40px;
+	background-color: #A00000;
+	padding: 10px;
+	padding-bottom: 20px;
 }
 
 .navi {
 	clear: left;
 	float: left;
 	width: 20%;
-	height: 450px;
+	height: 420px;
 	background-color: lightgrey;
 	padding: 10px;
 }
@@ -43,7 +53,7 @@ div {
 .content {
 	float: right;
 	width: 75%;
-	height: 450px;
+	height: 420px;
 	padding:10px;
 }
 

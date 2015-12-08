@@ -171,21 +171,30 @@ def getFutureReservations(username):
     date = "{}".format(str(datetime.datetime.now()))
     db = Connection("root","password","scheduler")
     cursor = db.execute("select id,tbl_resources_id, from_datetime, to_datetime from tbl_reservations where reserved_by = \"{}\" and from_datetime > now()".format(username))
-    return cursor.fetchall()
+    results = [[r for r in c] for c in cursor.fetchall()]
+    for r in results:
+        r.append(computeStatus(r[0]))
+    return results
 
 def getCurrentReservations(username):
     "Returns all current reservations for username"
     date = "{}".format(str(datetime.datetime.now()))
     db = Connection("root","password","scheduler")
     cursor = db.execute("select id,tbl_resources_id, from_datetime, to_datetime from tbl_reservations where reserved_by = \"{}\" and from_datetime <= now() and now() <= to_datetime".format(username))
-    return cursor.fetchall()
+    results = [[r for r in c] for c in cursor.fetchall()]
+    for r in results:
+        r.append(computeStatus(r[0]))
+    return results
 
 def getPastReservations(username):
     "Returns all past reservations for username"
     date = "{}".format(str(datetime.datetime.now()))
     db = Connection("root","password","scheduler")
     cursor = db.execute("select id,tbl_resources_id, from_datetime, to_datetime from tbl_reservations where reserved_by = \"{}\" and to_datetime < now()".format(username))
-    return cursor.fetchall()
+    results = [[r for r in c] for c in cursor.fetchall()]
+    for r in results:
+        r.append(computeStatus(r[0]))
+    return results
 
 def deleteReservation(Rid):
     db = Connection("root","password","scheduler")
@@ -299,3 +308,33 @@ def giveFeedback(resourceID,rating,comments):
     )
     db.commit()
 
+def computeStatus(reservationID):
+    db = Connection("root","password","scheduler")
+    this = db.select("tbl_reservations",["id","tbl_resources_id","from_datetime","to_datetime","reserved_date"],["id"],["="],[reservationID])[0]
+    allReservations = db.selectAll("tbl_reservations",["id","tbl_resources_id","from_datetime","to_datetime","reserved_date"])
+    for that in allReservations:
+        print that
+        print this
+        if (
+            that[0] != this[0] and
+            that[1] == this[1] and
+            that[4] < this[4] and
+            not (that[2] >= this[3] or this[2] >= that[3])
+            ):
+            print "waitlist"
+            return "Waitlist"
+    return "Active"
+
+def getReport(fromDate, toDate):
+    db = Connection("root","password","scheduler").db
+    cursor = db.cursor()
+    query = """
+        select tr.value as room,resv.from_datetime, resv.to_datetime, resv.status, resv.reserved_date, (usr.first_name + ' '+ usr.last_name) as reserved_by, resv.remarks
+		from tbl_reservations resv
+		left outer join tbl_resources resc on resv.tbl_resources_id = resc.id
+		left outer join tbl_resc_traits tr on resc.id=tr.resc_id and tr.key='name'
+		left outer join tbl_users usr on resv.reserved_by=usr.username
+		where CAST(resv.reserved_date AS DATE) >= CAST('{}' AS DATE) and CAST(resv.reserved_date AS DATE) <= CAST('{}' AS DATE);
+    """.format(sanitize(fromDate),sanitize(toDate))
+    cursor.execute(query)
+    return cursor.fetchall()

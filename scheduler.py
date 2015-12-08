@@ -61,6 +61,10 @@ def management_page():
 		users = getMyUsers(session["username"])
 	return render_template("management.html", newUsers = getNewUsers(), myUsers = users, privilege = session["role id"])
 
+@app.route("/report")
+def report_page():
+	return render_template("report.html", privilege = session["role id"])
+
 @app.route("/adminpage")
 def admin_page():
 	return render_template("admin.html", users = getNewAndRegUsers(), privilege = session["role id"])
@@ -203,7 +207,13 @@ def feedback():
 @app.route("/reservations/<reservationid>")
 def unreserve(reservationid):
 	deleteReservation(reservationid)
-	return reservations_page()
+	return reservations_pag()
+
+@app.route("/report", methods=['POST'])
+def query():
+	getReport(request.form["fromDate"], request.form["toDate"])
+	return report_page()
+
 
 
 @app.route("/feedback/<resourceid>")
