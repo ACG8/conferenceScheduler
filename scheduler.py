@@ -55,7 +55,11 @@ def search_page():
 
 @app.route("/managementpage")
 def management_page():
-	return render_template("management.html", newUsers = getNewUsers(), myUsers = getMyUsers(session["username"]), privilege = session["role id"])
+	if session["role id"] > 3:
+		users = getRegUsers() + getManagers()
+	else:
+		users = getMyUsers(session["username"])
+	return render_template("management.html", newUsers = getNewUsers(), myUsers = users, privilege = session["role id"])
 
 @app.route("/adminpage")
 def admin_page():

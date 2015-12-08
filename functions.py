@@ -242,6 +242,12 @@ def getNewUsers():
     dbTuple = db.select("tbl_users",["username"],["role_id"],["="],[1])
     return [d[0] for d in dbTuple]
 
+def getRegUsers():
+    "Returns a list of new users"
+    db = Connection("root","password","scheduler")
+    dbTuple = db.select("tbl_users",["username"],["role_id"],["="],[2])
+    return [d[0] for d in dbTuple]
+
 def getNewAndRegUsers():
     "Returns a list of new and regular users"
     db = Connection("root","password","scheduler")
