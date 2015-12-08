@@ -5,10 +5,10 @@
 	<title>Conference Scheduler - My Reservations</title>
 	<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css') }}" />
 	<script type="text/javascript">
-		function fnConfirm()
-		{
-			return confirm("Are you sure you want to delete it?");
-		}
+	  function fnConfirm()
+	  {
+	  	return confirm("Are you sure you want to delete it?");
+	  }
 	</script>
 </head>
 
@@ -16,17 +16,13 @@
 	<div class="body">
 		<div class="header">
 			<span style="font-size: 30px">Reservations</span>
-		</div>
-		{% if privilege > 3 %}
+		</div>{% if privilege > 3 %}
 		<div class="admin">
 			<a href="/adminpage" style="display:block; margin-top:30px">Administrator Page</a>
 		</div>
 		{% endif %}
 		{% if privilege > 2 %}
-		<div class="manage">
-			<a href="/managementpage" style="display:block;">Manage Users</a>
-			<a href="/report" style="display:block; margin-top:30px">Report</a>
-		</div>
+		<div class="manage"><a href="/managementpage" style="display:block; margin-top:30px">Manage Users</a></div>
 		{% endif %}
 		<div class="content">
 			<span style="color: red; display: block">{{ notification }}</span>
@@ -37,13 +33,15 @@
 					<td>From Date</td>
 					<td>To Date</td>
 					<td>Delete?</td>
+					<td>Update</td>
 				</tr>
 				{% for R in FutureReservations %}
 				<tr>
 					<td>{{R[1]}}</td>
 					<td>{{R[2]}}</td>
 					<td>{{R[3]}}</td>
-					<td><a href='/reservations/{{R[0]}}' onclick="return fnConfirm()"></td>
+					<td><a href='/reservations/{{R[0]}}' onclick="return fnConfirm()">Delete</a></td>
+					<td><a href='/manage/update/{{R[0]}}'>Update</a></td>
 				</tr>
 				{% endfor %}
 			</table>
@@ -60,7 +58,7 @@
 					<td>{{R[2]}}</td>
 					<td>{{R[3]}}</td>
 				</tr>
-				{% endfor %}
+  			{% endfor %}
 			</table>
 
 			<span>Past Reservations</span>
@@ -69,14 +67,14 @@
 					<td>Room No.</td>
 					<td>From Date</td>
 					<td>To Date</td>
-					<td>Delete?</td>
+					<td>Leave Feedback</td>
 				</tr>
 				{% for R in PastReservations %}
 				<tr>
 					<td>{{R[1]}}</td>
 					<td>{{R[2]}}</td>
 					<td>{{R[3]}}</td>
-					<td><a href='/feedback/{{R[1]}}'>Leave Feedback</td>
+					<td><a href='/feedback/{{R[1]}}'>Leave Feedback</a></td>
 				</tr>
 				{% endfor %}
 			</table>

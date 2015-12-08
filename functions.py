@@ -102,6 +102,21 @@ def getReservationTimes(resourceID,date):
     reservationTimes = [(r[2],r[3]) for r in reservations if r[1]==resourceID]
     return reservationTimes
 
+def getReservationFromID(id):
+    """Returns a list of reservation ids beginning or ending on the specified date.
+    Input must be in YYYY-MM-DD format"""
+    id = sanitize(id)
+
+    db = Connection("root","password","scheduler").db
+    cursor = db.cursor()
+    query = """
+        SELECT * FROM tbl_reservations WHERE
+        id = {};
+    """.format(id)
+    cursor.execute(query)
+    result = cursor.fetchall()
+    return result
+
 def makeReservation(username,resourceID,start,end):
     db = Connection("root","password","scheduler")
     date = "\"{}\"".format(str(datetime.datetime.now()))
@@ -227,6 +242,18 @@ def getNewUsers():
     dbTuple = db.select("tbl_users",["username"],["role_id"],["="],[1])
     return [d[0] for d in dbTuple]
 
+def getNewAndRegUsers():
+    "Returns a list of new and regular users"
+    db = Connection("root","password","scheduler")
+    dbTuple = db.select("tbl_users",["username"],["role_id"],["<"],[3])
+    return [d[0] for d in dbTuple]
+
+def getManagers():
+    "Returns a list of managers"
+    db = Connection("root","password","scheduler")
+    dbTuple = db.select("tbl_users",["username"],["role_id"],["="],[3])
+    return [d[0] for d in dbTuple]
+
 def getMyUsers(username):
     "Returns a list of users whose manager is the current user"
     db = Connection("root","password","scheduler")
@@ -245,6 +272,12 @@ def changeUserRole(username,newRoleId):
     db.update("tbl_users",["role_id"],[newRoleId],["username"],["="],[username])
     db.commit()
 
+def getRoles():
+    "Returns all roles"
+    db = Connection("root","password","scheduler")
+    dbTuple = db.select("tbl_roles",["name","id"],["id"],[">"],[0])
+    return dbTuple
+
 def getFeedback(resourceID):
     "Returns all feedback for the given resource"
     db = Connection("root","password","scheduler")
@@ -260,6 +293,7 @@ def giveFeedback(resourceID,rating,comments):
     )
     db.commit()
 
+<<<<<<< HEAD
 def getReport(fromDate, toDate):
     db = Connection("root","password","scheduler").db
     cursor = db.cursor()
@@ -273,3 +307,5 @@ def getReport(fromDate, toDate):
     """.format(sanitize(fromDate),sanitize(toDate))
     cursor.execute(query)
     return cursor.fetchall()
+=======
+>>>>>>> origin/master

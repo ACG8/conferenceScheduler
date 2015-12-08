@@ -1,0 +1,25 @@
+<html>
+	<form action="feedback" method="POST">
+		<div style="margin-top:10px; clear: both; float: left; width: 45%; padding: 10px">
+			<input type="hidden" name="resourceid" value="{{resourceid}}">
+			<span style="display: block; font-weight: bold">Feedback</span>
+			Rating:<select name="rating">
+			<option value="0">0</option>
+			<option value="1">1</option>
+			<option value="2">2</option>
+			<option value="3">3</option>
+			<option value="4">4</option>
+			<option value="5">5</option>
+			<option value="6">6</option>
+			<option value="7">7</option>
+			<option value="8">8</option>
+			<option value="9">9</option>
+			<option value="10">10</option>
+		</select>
+		<span style="display: block">Comments:</span>
+		<textarea name="comment" style="width: 90%"></textarea>
+		<button class="button">Done</button>
+		<span style="display: block"></span>
+		</div>
+	</form>
+</html>

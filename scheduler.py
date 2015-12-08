@@ -57,9 +57,15 @@ def search_page():
 def management_page():
 	return render_template("management.html", newUsers = getNewUsers(), myUsers = getMyUsers(session["username"]), privilege = session["role id"])
 
+<<<<<<< HEAD
 @app.route("/report")
 def report_page():
 	return render_template("report.html", report = query(request.form["fromDate"], request.form["toDate"]), privilege = session["role id"])
+=======
+@app.route("/adminpage")
+def admin_page():
+	return render_template("admin.html", users = getNewAndRegUsers(), privilege = session["role id"])
+>>>>>>> origin/master
 
 ############################################################
 ################      Account Functions     ################
@@ -155,10 +161,10 @@ def rooms(resourceid):
 def reserve():
 	data = request.form
 	starttime = datetime.datetime.strptime(data['starttime'],"%H:%M").time()
-	endtime = datetime.datetime.strptime(data['starttime'],"%H:%M").time()
+	endtime = datetime.datetime.strptime(data['endtime'],"%H:%M").time()
 	date = datetime.datetime.strptime(session["date"],"%Y-%m-%d").date()
 	now = datetime.datetime.now()
-	if (date >= now.date() and starttime < now.time()) or starttime >= endtime:
+	if (date <= now.date() and starttime < now.time()) or starttime >= endtime:
 		return render_template("search.html", resourceTypes = getResourceTypes(), buildings = getBuildings(), notification = "Cannot select a time in the past.", privilege = session["role id"])
 	start = "{} {}:00".format(session["date"],data["starttime"])
 	end = "{} {}:00".format(session["date"],data["endtime"])
@@ -187,7 +193,7 @@ def reserve():
 			count = count - 1
 	return reservations_page()
 	
-@app.route("/rooms/feedback", methods=['POST'])
+@app.route("/feedback/feedback", methods=['POST'])
 def feedback():
 	data = request.form
 	resourceid = data['resourceid']
@@ -207,6 +213,10 @@ def query(fromDate, toDate):
 	return report_page()
 
 
+
+@app.route("/feedback/<resourceid>")
+def feedback_resource(resourceid):
+	return render_template("feedback.html",resourceid = resourceid)
 ############################################################
 ################    Management Functions    ################
 ############################################################
@@ -217,6 +227,94 @@ def claim(username):
 	changeManager(username,me)
 	changeUserRole(username,2) #Make them into normal users
 	return management_page()
+	
+@app.route("/manage/reservations/<username>")
+def managerRes(username):
+	return render_template(
+			"manageReservations.html", 
+			FutureReservations = getFutureReservations(username),
+			CurrentReservations = getCurrentReservations(username),
+			PastReservations = getPastReservations(username),
+			privilege = session["role id"])
+			
+@app.route("/manage/update/<reservationid>")
+def managerUpd(reservationid):
+	reservation = getReservationFromID(reservationid)
+	children = getChildResources(reservation[0][1],"type_id")
+	children = [getResourceName(r) for r in children]
+	rscText = getResourceLocation(reservation[0][1])
+	rscText = (getBuildingName(rscText[0]), rscText[1])
+	feedback = getFeedback(reservation[0][1])
+	reservations = getReservationFromDate(session["date"])
+	items = []
+	for item in reservations:
+		if int(item[1]) == int(resourceid):
+			items.append("{} - {}".format(str(item[2].strftime("%I:%M %p")),str(item[3].strftime("%I:%M %p"))))
+	return render_template("manageUpdate.html", resourcetext = rscText, resourceid = reservation[0][1] , children = children, reservations = reservations, date = reservation[0][2].date(), items = items, feedback = feedback, privilege = session["role id"], resFromTime = reservation[0][2].time(), resToTime = reservation[0][3].time(), reservationid = reservationid)
+	
+@app.route("/manage/update/update", methods=['POST'])
+def manageResUpdate():
+	data = request.form
+	starttime = datetime.datetime.strptime(data['starttime'],"%H:%M").time()
+	endtime = datetime.datetime.strptime(data['endtime'],"%H:%M").time()
+	date = datetime.datetime.strptime(session["date"],"%Y-%m-%d").date()
+	now = datetime.datetime.now()
+	if (date >= now.date() and starttime < now.time()) or starttime >= endtime:
+		return render_template("search.html", resourceTypes = getResourceTypes(), buildings = getBuildings(), notification = "Cannot select a time in the past.", privilege = session["role id"])
+	start = "{} {}:00".format(session["date"],data["starttime"])
+	end = "{} {}:00".format(session["date"],data["endtime"])
+	currentuser = session['username']
+	resourceid = data['resourceid']
+	count = int(data['Amount'])
+	if count == 0:
+		makeReservation(currentuser,data['resourceid'],start,end)
+	else:
+		count = int(data['Amount'])
+		over = 0
+		while count > -1:
+			makeReservation(currentuser,data['resourceid'],start,end)
+			month = int(session["date"][5:7]) + count
+			if month > 12:
+				month = '0' + str(1 + over)
+				print month
+				year = int(session["date"][:4]) + 1
+				day = int(session["date"][-2:])
+				over = over + 1
+			else:
+				day = int(session["date"][-2:])
+				year = int(session["date"][:4])
+			start = str(year) + '-' + str(month) + '-' + str(day) + ' ' + str(data['starttime'] + ':00')
+			end = str(year) + '-' + str(month) + '-' + str(day) + ' ' + str(data['endtime'] + ':00')
+			count = count - 1
+	deleteReservation(data['reservationid'])
+	return managementPage()
+	
+
+
+############################################################
+################       Admin Functions      ################
+############################################################	
+@app.route("/admin/change")
+def admin_change():
+	return render_template("adminChange.html", users = getNewAndRegUsers(), managers = getManagers(), privilege = session["role id"])
+	
+@app.route("/admin/changeManager", methods=['POST'])
+def admin_changeManager():	
+	data = request.form
+	changeManager(data['username'],data['manager'])
+	return admin_page()
+
+@app.route("/admin/role")
+def admin_role():
+	return render_template("adminRole.html", users = getNewAndRegUsers() + getManagers(), roles = getRoles(), privilege = session["role id"])
+
+@app.route("/admin/changeRole", methods=['POST'])
+def admin_changeRole():		
+	data = request.form
+	print data
+	changeUserRole(data['username'],data['role'])
+	return admin_page()
+
 
 ############################################################
 ################            Main            ################
