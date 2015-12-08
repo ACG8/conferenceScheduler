@@ -207,7 +207,7 @@ def feedback():
 @app.route("/reservations/<reservationid>")
 def unreserve(reservationid):
 	deleteReservation(reservationid)
-	return reservations_pag()
+	return reservations_page()
 
 @app.route("/report", methods=['POST'])
 def query():
