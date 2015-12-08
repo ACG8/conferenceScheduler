@@ -352,5 +352,8 @@ def getReport(fromDate, toDate):
 		left outer join tbl_users usr on resv.reserved_by=usr.username
 		where CAST(resv.reserved_date AS DATE) >= CAST('{}' AS DATE) and CAST(resv.reserved_date AS DATE) <= CAST('{}' AS DATE);
     """.format(sanitize(fromDate),sanitize(toDate))
-    cursor.execute(query)
+    try:
+    	cursor.execute(query)
+    except Exception as e:
+    	print str(e)
     return cursor.fetchall()

@@ -27,21 +27,31 @@
 		</div>
 		{% endif %}
 		<div class="content">
-			<form action="reportresult" method="POST">
-				<div>
-					<table border="0">
-						<tr>
-							<td>From Date</td>
-							<td><input name="fromDate" type="date"></td>
-						</tr>
-						<tr>
-							<td>To Date</td>
-							<td><input name="toDate" type="date"></td>
-						</tr>
-					</table>
-					<button class="button">Search</button>
-				</div>
-			</form>
+			<div>
+				<table style="border: 1px solid black; border-collapse: collapse;" border="1">
+					<tr>
+						<td>Room</td>
+						<td>From Datetime</td>
+						<td>To Datetime</td>
+						<td>Status</td>
+						<td>Reservation Date</td>
+						<td>Reserved by</td>
+						<td>Remarks</td>
+					</tr>
+					{% for item in report %}
+					<tr>
+						<td>{{item[0]}}</td>
+						<td>{{item[1]}}</td>
+						<td>{{item[2]}}</td>
+						<td>{{item[3]}}</td>
+						<td>{{item[4]}}</td>
+						<td>{{item[5]}}</td>
+						<td>{{item[6]}}</td>
+					</tr>
+					{% endfor %}
+				</table>
+				<a href="/report"><button class="button">Back</button></a>
+			</div>
 		</div>
 		<div class="navi">
 			{% if privilege > 1 %}<a href="/searchpage" style="display:block">Make Reservation</a>{% endif %}
