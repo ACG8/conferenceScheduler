@@ -199,7 +199,7 @@
 			"file": "/C/Users/Ananda/Documents/conferenceScheduler/scheduler.py",
 			"settings":
 			{
-				"buffer_size": 11351,
+				"buffer_size": 12393,
 				"line_ending": "Windows"
 			}
 		},
@@ -215,7 +215,7 @@
 			"file": "/C/Users/Ananda/Documents/conferenceScheduler/functions.py",
 			"settings":
 			{
-				"buffer_size": 10729,
+				"buffer_size": 11351,
 				"line_ending": "Windows"
 			}
 		},
@@ -223,7 +223,7 @@
 			"file": "management.html",
 			"settings":
 			{
-				"buffer_size": 1386,
+				"buffer_size": 1542,
 				"line_ending": "Windows"
 			}
 		},
@@ -231,7 +231,7 @@
 			"file": "resource.html",
 			"settings":
 			{
-				"buffer_size": 2449,
+				"buffer_size": 2605,
 				"line_ending": "Windows"
 			}
 		},
@@ -239,7 +239,7 @@
 			"file": "reservations.html",
 			"settings":
 			{
-				"buffer_size": 2265,
+				"buffer_size": 2421,
 				"line_ending": "Windows"
 			}
 		},
@@ -247,7 +247,7 @@
 			"file": "preferences.html",
 			"settings":
 			{
-				"buffer_size": 1420,
+				"buffer_size": 1576,
 				"line_ending": "Windows"
 			}
 		},
@@ -255,7 +255,7 @@
 			"file": "dashboard.html",
 			"settings":
 			{
-				"buffer_size": 1018,
+				"buffer_size": 1174,
 				"line_ending": "Windows"
 			}
 		},
@@ -271,7 +271,7 @@
 			"file": "rooms.html",
 			"settings":
 			{
-				"buffer_size": 1097,
+				"buffer_size": 1253,
 				"line_ending": "Windows"
 			}
 		},
@@ -279,7 +279,7 @@
 			"file": "search.html",
 			"settings":
 			{
-				"buffer_size": 1725,
+				"buffer_size": 1881,
 				"line_ending": "Windows"
 			}
 		},
@@ -506,15 +506,15 @@
 					"file": "/C/Users/Ananda/Documents/conferenceScheduler/scheduler.py",
 					"settings":
 					{
-						"buffer_size": 11351,
+						"buffer_size": 12393,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								5000,
-								4996
+								0,
+								0
 							]
 						],
 						"settings":
@@ -561,7 +561,7 @@
 					"file": "/C/Users/Ananda/Documents/conferenceScheduler/functions.py",
 					"settings":
 					{
-						"buffer_size": 10729,
+						"buffer_size": 11351,
 						"regions":
 						{
 						},
@@ -589,7 +589,7 @@
 					"file": "management.html",
 					"settings":
 					{
-						"buffer_size": 1386,
+						"buffer_size": 1542,
 						"regions":
 						{
 						},
@@ -616,7 +616,7 @@
 					"file": "resource.html",
 					"settings":
 					{
-						"buffer_size": 2449,
+						"buffer_size": 2605,
 						"regions":
 						{
 						},
@@ -643,7 +643,7 @@
 					"file": "reservations.html",
 					"settings":
 					{
-						"buffer_size": 2265,
+						"buffer_size": 2421,
 						"regions":
 						{
 						},
@@ -670,7 +670,7 @@
 					"file": "preferences.html",
 					"settings":
 					{
-						"buffer_size": 1420,
+						"buffer_size": 1576,
 						"regions":
 						{
 						},
@@ -697,7 +697,7 @@
 					"file": "dashboard.html",
 					"settings":
 					{
-						"buffer_size": 1018,
+						"buffer_size": 1174,
 						"regions":
 						{
 						},
@@ -751,7 +751,7 @@
 					"file": "rooms.html",
 					"settings":
 					{
-						"buffer_size": 1097,
+						"buffer_size": 1253,
 						"regions":
 						{
 						},
@@ -778,15 +778,15 @@
 					"file": "search.html",
 					"settings":
 					{
-						"buffer_size": 1725,
+						"buffer_size": 1881,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								1296,
-								1296
+								0,
+								0
 							]
 						],
 						"settings":

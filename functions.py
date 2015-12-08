@@ -171,21 +171,30 @@ def getFutureReservations(username):
     date = "{}".format(str(datetime.datetime.now()))
     db = Connection("root","password","scheduler")
     cursor = db.execute("select id,tbl_resources_id, from_datetime, to_datetime from tbl_reservations where reserved_by = \"{}\" and from_datetime > now()".format(username))
-    return cursor.fetchall()
+    results = [[r for r in c] for c in cursor.fetchall()]
+    for r in results:
+        r.append(computeStatus(r[0]))
+    return results
 
 def getCurrentReservations(username):
     "Returns all current reservations for username"
     date = "{}".format(str(datetime.datetime.now()))
     db = Connection("root","password","scheduler")
     cursor = db.execute("select id,tbl_resources_id, from_datetime, to_datetime from tbl_reservations where reserved_by = \"{}\" and from_datetime <= now() and now() <= to_datetime".format(username))
-    return cursor.fetchall()
+    results = [[r for r in c] for c in cursor.fetchall()]
+    for r in results:
+        r.append(computeStatus(r[0]))
+    return results
 
 def getPastReservations(username):
     "Returns all past reservations for username"
     date = "{}".format(str(datetime.datetime.now()))
     db = Connection("root","password","scheduler")
     cursor = db.execute("select id,tbl_resources_id, from_datetime, to_datetime from tbl_reservations where reserved_by = \"{}\" and to_datetime < now()".format(username))
-    return cursor.fetchall()
+    results = [[r for r in c] for c in cursor.fetchall()]
+    for r in results:
+        r.append(computeStatus(r[0]))
+    return results
 
 def deleteReservation(Rid):
     db = Connection("root","password","scheduler")
@@ -293,3 +302,19 @@ def giveFeedback(resourceID,rating,comments):
     )
     db.commit()
 
+def computeStatus(reservationID):
+    db = Connection("root","password","scheduler")
+    this = db.select("tbl_reservations",["id","tbl_resources_id","from_datetime","to_datetime","reserved_date"],["id"],["="],[reservationID])[0]
+    allReservations = db.selectAll("tbl_reservations",["id","tbl_resources_id","from_datetime","to_datetime","reserved_date"])
+    for that in allReservations:
+        print that
+        print this
+        if (
+            that[0] != this[0] and
+            that[1] == this[1] and
+            that[4] < this[4] and
+            not (that[2] >= this[3] or this[2] >= that[3])
+            ):
+            print "waitlist"
+            return "Waitlist"
+    return "Active"

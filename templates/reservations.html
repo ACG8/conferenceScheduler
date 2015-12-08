@@ -33,14 +33,16 @@
 					<td>Room No.</td>
 					<td>From Date</td>
 					<td>To Date</td>
-					<td>Delete?</td>
+					<td>Action</td>
+					<td>Status</td>
 				</tr>
 				{% for R in FutureReservations %}
 				<tr>
 					<td>{{R[1]}}</td>
 					<td>{{R[2]}}</td>
 					<td>{{R[3]}}</td>
-					<td><a href='/reservations/{{R[0]}}' onclick="return fnConfirm()"></td>
+					<td><a href='/reservations/{{R[0]}}' onclick="return fnConfirm()">Delete</td>
+					<td>{{R[4]}}</td>
 				</tr>
 				{% endfor %}
 			</table>
@@ -50,12 +52,14 @@
 					<td>Room No.</td>
 					<td>From Date</td>
 					<td>To Date</td>
+					<td>Status</td>
 				</tr>
 				{% for R in CurrentReservations %}
 				<tr>
 					<td>{{R[1]}}</td>
 					<td>{{R[2]}}</td>
 					<td>{{R[3]}}</td>
+					<td>{{R[4]}}</td>
 				</tr>
   			{% endfor %}
 			</table>
