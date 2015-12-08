@@ -154,7 +154,7 @@ def reserve():
 	endtime = datetime.datetime.strptime(data['endtime'],"%H:%M").time()
 	date = datetime.datetime.strptime(session["date"],"%Y-%m-%d").date()
 	now = datetime.datetime.now()
-	if (date >= now.date() and starttime < now.time()) or starttime >= endtime:
+	if (date <= now.date() and starttime < now.time()) or starttime >= endtime:
 		return render_template("search.html", resourceTypes = getResourceTypes(), buildings = getBuildings(), notification = "Cannot select a time in the past.", privilege = session["role id"])
 	start = "{} {}:00".format(session["date"],data["starttime"])
 	end = "{} {}:00".format(session["date"],data["endtime"])
