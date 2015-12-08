@@ -174,6 +174,13 @@ def getFutureReservations(username):
     results = [[r for r in c] for c in cursor.fetchall()]
     for r in results:
         r.append(computeStatus(r[0]))
+        print "a"
+        locationText = getResourceLocation(r[1])
+        print locationText
+        locationText = "{} {}".format(locationText[1],getBuildingName(locationText[0]))
+        print locationText
+        r.append(locationText)
+    print results
     return results
 
 def getCurrentReservations(username):
@@ -184,6 +191,11 @@ def getCurrentReservations(username):
     results = [[r for r in c] for c in cursor.fetchall()]
     for r in results:
         r.append(computeStatus(r[0]))
+        locationText = getResourceLocation(r[1])
+        print locationText
+        locationText = "{} {}".format(locationText[1],getBuildingName(locationText[0]))
+        print locationText
+        r.append(locationText)
     return results
 
 def getPastReservations(username):
@@ -194,6 +206,11 @@ def getPastReservations(username):
     results = [[r for r in c] for c in cursor.fetchall()]
     for r in results:
         r.append(computeStatus(r[0]))
+        locationText = getResourceLocation(r[1])
+        print locationText
+        locationText = "{} {}".format(locationText[1],getBuildingName(locationText[0]))
+        print locationText
+        r.append(locationText)
     return results
 
 def deleteReservation(Rid):
@@ -205,6 +222,7 @@ def getResourceLocation(resourceID):
     "Returns the building,roomid of a resource (specifically, a room)"
     db = Connection("root","password","scheduler")
     dbTuple = db.select("tbl_room_locations",["tbl_buildings_id","room"],["tbl_resources_id"],["="],[resourceID])
+    print dbTuple
     return dbTuple[0]
 
 def getPasswordAndEmail(username):
@@ -220,22 +238,17 @@ def getUserData(username):
     roleid = getRoleId(username)
     dbTuple2 = db.select("tbl_roles",["name"],["id"],["="],[roleid])
     raw = [a for a in dbTuple[0]] + [dbTuple2[0][0]]
-    print raw
     basicData = [
         ("Username",raw[0]),
         ("Name","{} {}".format(raw[1],raw[2])),
         ("Email",raw[3]),
         ("User Type",raw[4])
         ]
-    print basicData
     return basicData
 
 def checkHasResources(roomID,rscTypeIDList):
     "Checks whether a roomid has all resources listed."
     resourceTypes = getChildResources(roomID,"type_id")
-    print "a"
-    print resourceTypes
-    print "b"
     for rscT in rscTypeIDList:
         if not rscT in resourceTypes:
             return False
@@ -313,15 +326,12 @@ def computeStatus(reservationID):
     this = db.select("tbl_reservations",["id","tbl_resources_id","from_datetime","to_datetime","reserved_date"],["id"],["="],[reservationID])[0]
     allReservations = db.selectAll("tbl_reservations",["id","tbl_resources_id","from_datetime","to_datetime","reserved_date"])
     for that in allReservations:
-        print that
-        print this
         if (
             that[0] != this[0] and
             that[1] == this[1] and
             that[4] < this[4] and
             not (that[2] >= this[3] or this[2] >= that[3])
             ):
-            print "waitlist"
             return "Waitlist"
     return "Active"
 

@@ -33,7 +33,7 @@
 			<span>Future Reservations</span>
 			<table border="1">
 				<tr>
-					<td>Room No.</td>
+					<td>Room</td>
 					<td>From Date</td>
 					<td>To Date</td>
 					<td>Status</td>
@@ -41,7 +41,7 @@
 				</tr>
 				{% for R in FutureReservations %}
 				<tr>
-					<td>{{R[1]}}</td>
+					<td>{{R[5]}}</td>
 					<td>{{R[2]}}</td>
 					<td>{{R[3]}}</td>
 					<td>{{R[4]}}</td>
@@ -52,14 +52,14 @@
 			<span>Current Reservations</span>
 			<table border="1">
 				<tr>
-					<td>Room No.</td>
+					<td>Room</td>
 					<td>From Date</td>
 					<td>To Date</td>
 					<td>Status</td>
 				</tr>
 				{% for R in CurrentReservations %}
 				<tr>
-					<td>{{R[1]}}</td>
+					<td>{{R[5]}}</td>
 					<td>{{R[2]}}</td>
 					<td>{{R[3]}}</td>
 					<td>{{R[4]}}</td>
@@ -70,14 +70,14 @@
 			<span>Past Reservations</span>
 			<table border="1">
 				<tr>
-					<td>Room No.</td>
+					<td>Room</td>
 					<td>From Date</td>
 					<td>To Date</td>
 					<td>Action</td>
 				</tr>
 				{% for R in PastReservations %}
 				<tr>
-					<td>{{R[1]}}</td>
+					<td>{{R[5]}}</td>
 					<td>{{R[2]}}</td>
 					<td>{{R[3]}}</td>
 					<td><a href='/feedback/{{R[1]}}'>Leave Feedback</td>
