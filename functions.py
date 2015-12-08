@@ -259,3 +259,17 @@ def giveFeedback(resourceID,rating,comments):
               ("tbl_resources_id","rating","comments","created_on")
     )
     db.commit()
+
+def getReport(fromDate, toDate):
+    db = Connection("root","password","scheduler").db
+    cursor = db.cursor()
+    query = """
+        select tr.value as room,resv.from_datetime, resv.to_datetime, resv.status, resv.reserved_date, (usr.first_name + ' '+ usr.last_name) as reserved_by, resv.remarks
+		from tbl_reservations resv
+		left outer join tbl_resources resc on resv.tbl_resources_id = resc.id
+		left outer join tbl_resc_traits tr on resc.id=tr.resc_id and tr.key='name'
+		left outer join tbl_users usr on resv.reserved_by=usr.username
+		where CAST(resv.reserved_date AS DATE) >= CAST('{}' AS DATE) and CAST(resv.reserved_date AS DATE) <= CAST('{}' AS DATE);
+    """.format(sanitize(fromDate),sanitize(toDate))
+    cursor.execute(query)
+    return cursor.fetchall()

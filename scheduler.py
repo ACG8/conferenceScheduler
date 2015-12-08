@@ -57,6 +57,10 @@ def search_page():
 def management_page():
 	return render_template("management.html", newUsers = getNewUsers(), myUsers = getMyUsers(session["username"]), privilege = session["role id"])
 
+@app.route("/report")
+def report_page():
+	return render_template("report.html", report = query(request.form["fromDate"], request.form["toDate"]), privilege = session["role id"])
+
 ############################################################
 ################      Account Functions     ################
 ############################################################
@@ -195,7 +199,13 @@ def feedback():
 @app.route("/reservations/<reservationid>")
 def unreserve(reservationid):
 	deleteReservation(reservationid)
-	return reservations_page()
+	return reservations_pag()
+
+@app.route("/report", methods=['POST'])
+def query(fromDate, toDate):
+	getReport(fromDate, toDate)
+	return report_page()
+
 
 ############################################################
 ################    Management Functions    ################

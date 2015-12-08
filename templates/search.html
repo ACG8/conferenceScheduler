@@ -12,7 +12,10 @@
 			<span>Search</span>
 		</div>
 		{% if privilege > 2 %}
-		<div class="manage"><a href="/managementpage" style="display:block; margin-top:30px">Manage Users</a></div>
+		<div class="manage">
+			<a href="/managementpage" style="display:block;">Manage Users</a>
+			<a href="/report" style="display:block; margin-top:30px">Report</a>
+		</div>
 		{% endif %}
 		<div class="content">
 			<font color="red">{{ notification }}</font>
