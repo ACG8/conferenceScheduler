@@ -19,7 +19,7 @@
 		</div>
 		{% if privilege > 3 %}
 		<div class="admin">
-			<a href="/adminpage" style="display:block; margin-top:30px">Administrator Page</a>
+			<a href="/adminpage" style="display:block;">Administrator Page</a>
 		</div>
 		{% endif %}
 		{% if privilege > 2 %}
@@ -36,16 +36,16 @@
 					<td>Room No.</td>
 					<td>From Date</td>
 					<td>To Date</td>
-					<td>Action</td>
 					<td>Status</td>
+					<td>Action</td>
 				</tr>
 				{% for R in FutureReservations %}
 				<tr>
 					<td>{{R[1]}}</td>
 					<td>{{R[2]}}</td>
 					<td>{{R[3]}}</td>
-					<td><a href='/reservations/{{R[0]}}' onclick="return fnConfirm()">Delete</td>
 					<td>{{R[4]}}</td>
+					<td><a href='/reservations/{{R[0]}}' onclick="return fnConfirm()">Delete</td>
 				</tr>
 				{% endfor %}
 			</table>
@@ -73,7 +73,7 @@
 					<td>Room No.</td>
 					<td>From Date</td>
 					<td>To Date</td>
-					<td>Delete?</td>
+					<td>Action</td>
 				</tr>
 				{% for R in PastReservations %}
 				<tr>

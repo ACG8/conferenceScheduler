@@ -59,7 +59,7 @@ def management_page():
 
 @app.route("/report")
 def report_page():
-	return render_template("report.html", report = query(request.form["fromDate"], request.form["toDate"]), privilege = session["role id"])
+	return render_template("report.html", privilege = session["role id"])
 
 @app.route("/adminpage")
 def admin_page():
@@ -206,8 +206,8 @@ def unreserve(reservationid):
 	return reservations_pag()
 
 @app.route("/report", methods=['POST'])
-def query(fromDate, toDate):
-	getReport(fromDate, toDate)
+def query():
+	getReport(request.form["fromDate"], request.form["toDate"])
 	return report_page()
 
 

@@ -32,6 +32,15 @@ div {
 	padding-bottom: 20px;
 }
 
+.admin {
+	float: left;
+	width : 20%;
+	height: 30px;
+	background-color: lightred;
+	padding: 10px;
+	padding-bottom: 20px;
+}
+
 .navi {
 	clear: left;
 	float: left;
