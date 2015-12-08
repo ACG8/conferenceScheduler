@@ -242,6 +242,18 @@ def getNewUsers():
     dbTuple = db.select("tbl_users",["username"],["role_id"],["="],[1])
     return [d[0] for d in dbTuple]
 
+def getNewAndRegUsers():
+    "Returns a list of new and regular users"
+    db = Connection("root","password","scheduler")
+    dbTuple = db.select("tbl_users",["username"],["role_id"],["<"],[3])
+    return [d[0] for d in dbTuple]
+
+def getManagers():
+    "Returns a list of managers"
+    db = Connection("root","password","scheduler")
+    dbTuple = db.select("tbl_users",["username"],["role_id"],["="],[3])
+    return [d[0] for d in dbTuple]
+
 def getMyUsers(username):
     "Returns a list of users whose manager is the current user"
     db = Connection("root","password","scheduler")
@@ -260,6 +272,12 @@ def changeUserRole(username,newRoleId):
     db.update("tbl_users",["role_id"],[newRoleId],["username"],["="],[username])
     db.commit()
 
+def getRoles():
+    "Returns all roles"
+    db = Connection("root","password","scheduler")
+    dbTuple = db.select("tbl_roles",["name","id"],["id"],[">"],[0])
+    return dbTuple
+
 def getFeedback(resourceID):
     "Returns all feedback for the given resource"
     db = Connection("root","password","scheduler")
@@ -274,3 +292,4 @@ def giveFeedback(resourceID,rating,comments):
               ("tbl_resources_id","rating","comments","created_on")
     )
     db.commit()
+

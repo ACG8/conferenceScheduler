@@ -20,21 +20,23 @@
 		<div class="manage"><a href="/managementpage" style="display:block; margin-top:30px">Manage Users</a></div>
 		{% endif %}
 		<div class="content">
-			<span style="display: block">Approve and Claim New Users</span>
-			{% for nUser in newUsers %}
-			<p>
-				<a href='/manage/claim/{{nUser}}'>{{nUser}}</a>
-			</p>
-			{% endfor %}
-
-			<div style="margin-top: 10px; border: 1px solid black; padding: 10px">
-				<span>Manage My Users</span>
-				{% for mUser in myUsers %}
-				<p>
-					<a href="/manage/reservations/{{mUser}}">{{mUser}}</a>
-				</p>
-				{% endfor %}
-			</div>
+			<form action="/admin/changeManager" method="POST">
+				<p> User: </p>
+				<select name="username">
+					{% for user in users %}
+						<option value="{{user}}">{{user}}</option>
+					{% endfor %}
+				</select>
+				<p> Manager: </p>
+				<select name="manager">
+					{% for manager in managers %}
+						<option value="{{manager}}">{{manager}}</option>
+					{% endfor %}
+				</select>
+				<br>
+				<br>
+				<button>Change</button>
+			</form>
 		</div>
 		<div class="navi">
 			{% if privilege!=0 %}<a href="/searchpage" style="display:block">Make Reservation</a>{% endif %}

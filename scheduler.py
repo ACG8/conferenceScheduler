@@ -57,6 +57,10 @@ def search_page():
 def management_page():
 	return render_template("management.html", newUsers = getNewUsers(), myUsers = getMyUsers(session["username"]), privilege = session["role id"])
 
+@app.route("/adminpage")
+def admin_page():
+	return render_template("admin.html", users = getNewAndRegUsers(), privilege = session["role id"])
+
 ############################################################
 ################      Account Functions     ################
 ############################################################
@@ -271,8 +275,34 @@ def manageResUpdate():
 			end = str(year) + '-' + str(month) + '-' + str(day) + ' ' + str(data['endtime'] + ':00')
 			count = count - 1
 	deleteReservation(data['reservationid'])
-	return reservations_page()
+	return managementPage()
 	
+
+
+############################################################
+################       Admin Functions      ################
+############################################################	
+@app.route("/admin/change")
+def admin_change():
+	return render_template("adminChange.html", users = getNewAndRegUsers(), managers = getManagers(), privilege = session["role id"])
+	
+@app.route("/admin/changeManager", methods=['POST'])
+def admin_changeManager():	
+	data = request.form
+	changeManager(data['username'],data['manager'])
+	return admin_page()
+
+@app.route("/admin/role")
+def admin_role():
+	return render_template("adminRole.html", users = getNewAndRegUsers() + getManagers(), roles = getRoles(), privilege = session["role id"])
+
+@app.route("/admin/changeRole", methods=['POST'])
+def admin_changeRole():		
+	data = request.form
+	print data
+	changeUserRole(data['username'],data['role'])
+	return admin_page()
+
 
 ############################################################
 ################            Main            ################

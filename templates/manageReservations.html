@@ -16,7 +16,11 @@
 	<div class="body">
 		<div class="header">
 			<span style="font-size: 30px">Reservations</span>
+		</div>{% if privilege > 3 %}
+		<div class="admin">
+			<a href="/adminpage" style="display:block; margin-top:30px">Administrator Page</a>
 		</div>
+		{% endif %}
 		{% if privilege > 2 %}
 		<div class="manage"><a href="/managementpage" style="display:block; margin-top:30px">Manage Users</a></div>
 		{% endif %}
